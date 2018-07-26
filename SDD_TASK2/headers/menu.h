@@ -10,12 +10,12 @@
 #define menu_h
 
 #include <map>
-#include "rect.h"
+#include "button.h"
 #include "SDL2/SDL.h"
 
-// this class shouldn't be called a class... just drawing menu UI
-
+// forward declare 
 class Graphics;
+class Process;
 
 class Menu{
 public:
@@ -28,19 +28,10 @@ public:
     void drawTetrisWinMenu(Graphics &graphicsObj);
     void drawTetrisLoseMenu(Graphics &graphicsObj);
 
-    // clear this->_isButtonClicked at each new iteration of the game loop
-    void refreshButtonState();
-    
-    // check the user input
-    void checkButtonEvent(SDL_Event &event);
-    
-    // interface function: return true if a certain is pressed
-    bool isButtonClicked(int index)const;
+    void handleButtonEvent(SDL_Event &event, Process &process);
     
 private:
-    // clickable UI buttons
-    std::map<int, Rect> _buttons;
-    std::map<int, bool> _isButtonClicked;
+    std::map<std::string, Button *> _buttons;
 };
 
 #endif /* menu_h */

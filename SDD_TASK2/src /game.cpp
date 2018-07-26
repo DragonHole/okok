@@ -85,7 +85,7 @@ void Game::handleInput(){
     if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
         this->_process.setPid(2);
     
-    // commands below should only be those needed to be controlled
+    // commands only accessible in specific scene
     switch(this->_process.getPid()){
         case 1:{
             if(this->_keyboardObj.isKeyPressed(SDL_SCANCODE_DOWN))
@@ -100,8 +100,6 @@ void Game::handleInput(){
             if(_keyboardObj.isKeyPressed(SDL_SCANCODE_SPACE))
                 this->_tetrisObj.rotate();
 
-            if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
-                _process.setPid(2);
             break;
         }
     }

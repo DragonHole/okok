@@ -41,8 +41,9 @@ public:
     
     void initNewBlock(Graphics &graphicsObj);
     
+    void reset();
+    
 private:
-    void reset(); 
     
     std::vector<Rect> _groundedSquares;     // 无奈...
     std::vector<tempRect> _groundedRects;
@@ -53,7 +54,6 @@ private:
     int _level;
     int _score;
     int _completedRows;     // internal use
-    bool _isGameFinished;
     
     Sprite *_spriteSheets[4];    // four different colors
 };

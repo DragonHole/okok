@@ -172,4 +172,23 @@ void Tetris::checkStatus(){
         }
 }
 
+void Tetris::reset(){
+    // this destroys all the objects but doesn't deallocate memory, only clears index
+    this->_groundedSquares.clear();
+    this->_groundedRects.clear();
+    
+    // ISO c11's shrink_to_fit() is more idiomatic but doesn't guarantee complete deallocation
+    // so i've used a trick here. with the statement below i've created a rvalue of an empty vector. And since the scope of a rvalue is restricted to the current statement, right after the statement it reached its scope and default destructor gets called, associated data freed by system. A good lesson learnt here :)
+    std::vector<Rect>().swap(this->_groundedSquares);
+    std::vector<tempRect>().swap(this->_groundedRects);
+    
+    delete this->_currentBlock;
+    this->_currentBlock = nullptr;
+    
+    this->_timeElapsed = 0;
+    
+    this->_level = 1;
+    this->_score = 0;
+    this->_completedRows = 0;     // internal use
+}
 

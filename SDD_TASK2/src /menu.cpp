@@ -39,12 +39,6 @@ void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
 
 }
 
-void Menu::draw(Graphics &graphicsObj, Process process){
-    if(process.getPid() == 1)
-        this->drawTetrisDefaultMenu(graphicsObj);
-    
-}
-
 void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     // in this function we handle scene logics
     if(process.getPid() == 1)

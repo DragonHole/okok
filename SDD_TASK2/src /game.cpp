@@ -55,6 +55,8 @@ void Game::loop(){
                 quit=true;
         }
         
+        printf("current pid: %d", _process.getPid());
+        
         this->handleInput();
         
         const int CURRENT_TIME_MS = SDL_GetTicks();
@@ -120,7 +122,7 @@ void Game::draw(double elapsedTime){
             this->_timeElapsed += elapsedTime;
             this->_menuObj.draw(this->_graphicsObj, _process);
         
-            // the lose menu remains for 3 seconds
+            // the lose menu remains for 5 seconds
             if(_timeElapsed > 5000){
                 _timeElapsed -= 5000;
                 this->_process.setPid(1);

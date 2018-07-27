@@ -35,8 +35,6 @@ public:
 
     void handleButtonEvent(SDL_Event &event, Process &process);
     
-    void draw(Graphics &graphicsObj, Process process);
-    
 private:
     // a name for each button
     std::map<std::string, Button *> _buttons;

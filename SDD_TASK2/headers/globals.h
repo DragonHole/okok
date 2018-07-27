@@ -66,12 +66,16 @@ enum CurrentProcess{
 // Tetris
 // No reason to be accessible outside this class
 
-#define TETRIS_WINDOW_HEGHT 550                  // self-explanatory
 #define TETRIS_WINDOW_WIDTH 288 + 150             //
-    
-    // the specs of the game window
+#define TETRIS_WINDOW_HEGHT 550                  // self-explanatory
+
+// the specs of the game window
 #define TETRIS_GAME_AREA_WIDTH 288             //
 #define TETRIS_GAME_AREA_HEIGHT 550      //
+
+// pause menu..
+#define TETRIS_STOP_MENU_WIDTH 446
+#define TETRIS_STOP_MENU_HEIGHT 619
 
 // dimensions for EVERY square 
 #define TETRIS_SQUARE_HEIGHT 24

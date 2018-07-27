@@ -13,7 +13,7 @@
 Menu::Menu(){
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
-    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton.png", "tetrisStopMenuResumeButton.png", 100, 200, 140, 29);
+    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 160, 220, 128, 37);
     
 }
 
@@ -30,8 +30,7 @@ void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
 
 void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
     SDL_Color color = {255, 55, 244};
-    graphicsObj.drawImage("tetrisStopMenuBase.png", 0, 0, 606, 437);
-    graphicsObj.drawStaticText(10, "in pause menu", color, 1, 100, 100);
+    graphicsObj.drawImage("tetrisStopMenuBase.png", 0, 0, 446, 619);
     
     this->_buttons["tetrisStopMenuResumeButton"]->draw(graphicsObj);
 }

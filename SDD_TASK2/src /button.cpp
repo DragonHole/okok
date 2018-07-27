@@ -9,7 +9,7 @@
 #include "button.h"
 #include "graphics.h"
 
-Button::Button(std::string imageFilePath, std::string imageFilePath2, int x, int y, int w, int h):_imageFilePath(imageFilePath), _imageFilePath2(imageFilePath2), _boundBox(Rect(x, y, w, h)){}
+Button::Button(std::string imageFilePath, std::string imageFilePath2, int x, int y, int w, int h):_imageFilePath(imageFilePath), _imageFilePath2(imageFilePath2), _boundBox(Rect(x, y, w, h)), _isHovered(false), _isClicked(false){}
 
 Button::~Button(){}
 
@@ -34,10 +34,11 @@ void Button::update(SDL_Event &event){
 
 void Button::draw(Graphics &graphicsObj){
     if(this->_isHovered){
-        graphicsObj.drawImage(this->_imageFilePath, _boundBox.getX(), _boundBox.getY(), _boundBox.getW(), _boundBox.getH());
+        graphicsObj.drawImage(this->_imageFilePath2, _boundBox.getX(), _boundBox.getY(), _boundBox.getW(), _boundBox.getH());
+        
     }
     else{
-        graphicsObj.drawImage(this->_imageFilePath2, _boundBox.getX(), _boundBox.getY(), _boundBox.getW(), _boundBox.getH());
+        graphicsObj.drawImage(this->_imageFilePath, _boundBox.getX(), _boundBox.getY(), _boundBox.getW(), _boundBox.getH());
     }
 }
 

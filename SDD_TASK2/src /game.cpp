@@ -137,7 +137,7 @@ void Game::draw(double elapsedTime){
         }
             
         case 4:{
-            SDL_SetWindowSize(_graphicsObj.getWindow(), 606, 437);
+            SDL_SetWindowSize(_graphicsObj.getWindow(), TETRIS_STOP_MENU_WIDTH, TETRIS_STOP_MENU_HEIGHT);
             this->_menuObj.drawTetrisStopMenu(_graphicsObj);
             break;
         }

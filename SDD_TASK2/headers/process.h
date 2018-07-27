@@ -37,4 +37,5 @@ private:
 
 // 1 - tetris gaming screen
 // 2 - tetris lose screen
-// 3 - main menu 
+// 3 - main menu
+// 4 - tetris pause menu 

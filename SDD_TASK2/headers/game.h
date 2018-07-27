@@ -30,7 +30,7 @@ public:
 // by-reference may slightly improve performance, although it is negligible. because the object to pass is so small
     void handleInput();
     
-    void draw(Graphics &graphicsObj, double elapsedTime);
+    void draw(double elapsedTime);
     
 private:
  

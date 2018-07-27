@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C540D6F210A002B00E4F75F /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C540D6E210A002B00E4F75F /* button.cpp */; };
 		5C5885A52100434600794B11 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5885A42100434600794B11 /* SDL2_ttf.framework */; };
 		5C6CD59F20E70290000DDA89 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C6CD59E20E70290000DDA89 /* SDL2.framework */; };
 		5C6CD5A120E70374000DDA89 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C6CD5A020E70374000DDA89 /* SDL2_image.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C540D6D210A001F00E4F75F /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = headers/button.h; sourceTree = "<group>"; };
+		5C540D6E210A002B00E4F75F /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = "src /button.cpp"; sourceTree = "<group>"; };
 		5C5885A42100434600794B11 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Documents/SDL_Libraries/SDL2_ttf.framework; sourceTree = "<group>"; };
 		5C6CD57320E701EE000DDA89 /* SDD_TASK2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SDD_TASK2; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C6CD59E20E70290000DDA89 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Documents/SDL_Libraries/SDL2.framework; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		5C6CD57D20E701F6000DDA89 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5C540D6E210A002B00E4F75F /* button.cpp */,
 				5C6CD5AC20E70441000DDA89 /* block.cpp */,
 				5C6CD5AD20E70441000DDA89 /* game.cpp */,
 				5C6CD5AE20E70441000DDA89 /* sprite.cpp */,
@@ -118,6 +122,7 @@
 		5C6CD57E20E701FC000DDA89 /* headers */ = {
 			isa = PBXGroup;
 			children = (
+				5C540D6D210A001F00E4F75F /* button.h */,
 				5C6CD5A220E7042E000DDA89 /* graphics.h */,
 				5C6CD5A320E7042E000DDA89 /* rect.h */,
 				5C6CD5A420E7042E000DDA89 /* block.h */,
@@ -201,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C6CD5B220E70441000DDA89 /* block.cpp in Sources */,
+				5C540D6F210A002B00E4F75F /* button.cpp in Sources */,
 				5C6CD5B920EF2000000DDA89 /* tetris.cpp in Sources */,
 				5CC405172101FEA70012ECAB /* menu.cpp in Sources */,
 				5C6CD5B320E70441000DDA89 /* game.cpp in Sources */,

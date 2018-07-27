@@ -44,7 +44,7 @@ void Game::loop(){
                 this->_keyboardObj.keyUp(event);
             
             if(event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
-                this->_menuObj.checkButtonEvent(event);
+                this->_menuObj.handleButtonEvent(event, this->_process);
             
     // close the window when the red close button is pressed
             if(event.type == SDL_QUIT)
@@ -63,13 +63,14 @@ void Game::loop(){
         this->update(ELAPSED_TIME_MS);
         LastUpdateTime = CURRENT_TIME_MS;
         
-        this->draw(this->_graphicsObj, ELAPSED_TIME_MS);
+        this->draw(ELAPSED_TIME_MS);
         
         SDL_Delay(40);  // saves your battery and cpu :)
     }
 }
 
 void Game::update(double elapsedTime){
+    
     switch(this->_process.getPid()){
         case 1:{
             if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_LOSE)
@@ -105,16 +106,19 @@ void Game::handleInput(){
     }
 }
 
-void Game::draw(Graphics &graphicsObj, double elapsedTime){
-    graphicsObj.clearRenderer();
+void Game::draw(double elapsedTime){
+    this->_graphicsObj.clearRenderer();
     // used for contolling scenes(screens)
     
     switch(this->_process.getPid()){
-        case 1: {this->_tetrisObj.draw(this->_graphicsObj); break;}
+        case 1: {
+            this->_tetrisObj.draw(this->_graphicsObj);
+            this->_menuObj.drawTetrisDefaultMenu(this->_graphicsObj);
+            break;}
             
         case 2: {
             this->_timeElapsed += elapsedTime;
-            this->_menuObj.drawTetrisLoseMenu(this->_graphicsObj);
+            this->_menuObj.draw(this->_graphicsObj, _process);
         
             // the lose menu remains for 3 seconds
             if(_timeElapsed > 5000){

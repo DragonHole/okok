@@ -24,13 +24,21 @@ public:
     
     // draw menu(s), includes texts and images
     void drawMainMenu(Graphics &graphicsObj);
-    void drawTetrisMenu(Graphics &graphicsObj);
+    
+    // basically only the stop button in the gaming-screen
+    void drawTetrisDefaultMenu(Graphics &graphicsObj);
+    
+    // pulse menu with restart and quit buttons 
+    void drawTetrisStopMenu(Graphics &graphicsObj);
     void drawTetrisWinMenu(Graphics &graphicsObj);
     void drawTetrisLoseMenu(Graphics &graphicsObj);
 
     void handleButtonEvent(SDL_Event &event, Process &process);
     
+    void draw(Graphics &graphicsObj, Process process);
+    
 private:
+    // a name for each button
     std::map<std::string, Button *> _buttons;
 };
 

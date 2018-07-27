@@ -101,7 +101,9 @@ enum CurrentProcess{
 #define TETRIS_UI_SCORE_PER_LEVEL_X  (320)   //
 #define TETRIS_UI_SCORE_PER_LEVEL_Y (197)         //
 #define TETRIS_UI_SPEED_X	(612+60)            // falling speed of the current block
-#define TETRIS_UI_SPEED_Y  320                  // position of label drawing the current falling speed
+#define TETRIS_UI_SPEED_Y  320          // position of label drawing the current falling speed
+#define TETRIS_UI_COMPLETED_LINES_X (320)
+#define TETRIS_UI_COMPLETED_LINES_Y (287)
     
 enum BlockType
 {

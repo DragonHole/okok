@@ -39,6 +39,8 @@ public:
     // Gives access to this->_renderer
     SDL_Renderer * getRenderer()const;
     
+    SDL_Window * getWindow()const;
+    
     TTF_Font *getFont()const;
 
     // draw UI element
@@ -67,12 +69,13 @@ private:
 
 // text identifier documentation -
 // TETRIS
-// "Score" - 1
-// score value - 2
-// "Level" - 3
-// level value - 4
-// "Next Level" - 5
-// next level value - 6
-// 
+// 1 - "Score"
+// 2 - score value
+// 3 - "Level"
+// 4 - level value
+// 5 - "Next Level"
+// 6 - next level value
+// 7 - "Lines completed"
+// 8 - lines completed value 
 
 // MAIN MENU

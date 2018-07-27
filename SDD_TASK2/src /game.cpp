@@ -114,6 +114,8 @@ void Game::draw(double elapsedTime){
     
     switch(this->_process.getPid()){
         case 1: {
+            SDL_SetWindowSize(_graphicsObj.getWindow(), TETRIS_WINDOW_WIDTH, TETRIS_WINDOW_HEGHT);
+            
             this->_menuObj.drawTetrisDefaultMenu(this->_graphicsObj);
             this->_tetrisObj.draw(this->_graphicsObj);
             break;}
@@ -135,6 +137,7 @@ void Game::draw(double elapsedTime){
         }
             
         case 4:{
+            SDL_SetWindowSize(_graphicsObj.getWindow(), 606, 437);
             this->_menuObj.drawTetrisStopMenu(_graphicsObj);
             break;
         }

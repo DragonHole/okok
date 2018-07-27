@@ -16,7 +16,7 @@
 class Button{
 public:
     Button();
-    Button(std::string label, std::string imageFilePath, std::string imageFilePath2, int x, int y, int w, int h);
+    Button(std::string imageFilePath, std::string imageFilePath2, int x, int y, int w, int h);
     
     ~Button();
     
@@ -24,7 +24,7 @@ public:
     void refreshButtonState();
 
     // interface function: return true if a certain is pressed
-    bool isButtonClicked()const;
+    bool isButtonClicked();
     
     void update(SDL_Event &event);
     
@@ -39,7 +39,6 @@ private:
     
     std::string _imageFilePath;     // unclicked button
     std::string _imageFilePath2;    // clicked button
-    std::string _label;             // text displayed on the button
 };
 
 #endif /* button_h */

@@ -123,4 +123,8 @@ void Graphics::drawImage(std::string identifier, int x, int y, int w, int h){
         _imageTextureSheet[identifier].draw(*this, x, y);
 }
 
+SDL_Window *Graphics::getWindow()const{
+    return this->_window;
+}
+
 

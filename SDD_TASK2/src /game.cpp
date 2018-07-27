@@ -55,7 +55,7 @@ void Game::loop(){
                 quit=true;
         }
         
-        printf("current pid: %d", _process.getPid());
+        printf("\ncurrent pid: %d", _process.getPid());
         
         this->handleInput();
         
@@ -114,13 +114,13 @@ void Game::draw(double elapsedTime){
     
     switch(this->_process.getPid()){
         case 1: {
-            this->_tetrisObj.draw(this->_graphicsObj);
             this->_menuObj.drawTetrisDefaultMenu(this->_graphicsObj);
+            this->_tetrisObj.draw(this->_graphicsObj);
             break;}
             
         case 2: {
             this->_timeElapsed += elapsedTime;
-            this->_menuObj.draw(this->_graphicsObj, _process);
+            this->_menuObj.drawTetrisLoseMenu(_graphicsObj);
         
             // the lose menu remains for 5 seconds
             if(_timeElapsed > 5000){
@@ -129,6 +129,16 @@ void Game::draw(double elapsedTime){
             }
             break;
         }
+            
+        case 3:{
+            break;
+        }
+            
+        case 4:{
+            this->_menuObj.drawTetrisStopMenu(_graphicsObj);
+            break;
+        }
+            
     }
 
     _graphicsObj.flipRenderer();

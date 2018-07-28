@@ -41,7 +41,7 @@ public:
     
     void initNewBlock(Graphics &graphicsObj);
     
-    void reset();
+    void reset(Graphics &graphicsObj);
     
 private:
     

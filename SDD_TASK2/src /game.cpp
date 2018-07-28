@@ -142,6 +142,12 @@ void Game::draw(double elapsedTime){
             break;
         }
             
+        case 5:{
+            this->_tetrisObj.reset(this->_graphicsObj);
+            this->_process.setPid(1);
+            break;
+        }
+            
     }
 
     _graphicsObj.flipRenderer();

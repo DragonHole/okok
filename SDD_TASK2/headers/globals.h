@@ -74,8 +74,8 @@ enum CurrentProcess{
 #define TETRIS_GAME_AREA_HEIGHT 550      //
 
 // pause menu..
-#define TETRIS_STOP_MENU_WIDTH 446
-#define TETRIS_STOP_MENU_HEIGHT 619
+#define TETRIS_STOP_MENU_WIDTH 374
+#define TETRIS_STOP_MENU_HEIGHT 406
 
 // dimensions for EVERY square 
 #define TETRIS_SQUARE_HEIGHT 24

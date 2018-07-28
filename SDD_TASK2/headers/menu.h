@@ -44,4 +44,5 @@ private:
 
 // button index documentation
 // TETRIS
-// 
+// tetrisPauseButton
+// tetrisStopMenuBackButton

@@ -140,7 +140,7 @@ void Tetris::initNewBlock(Graphics &graphicsObj){
     Color color = Color(rand() % 4);
     BlockType blockType = BlockType(rand() % 7);
     
-    this->_currentBlock = new Block(graphicsObj, 0, 0, TETRIS_SQUARE_WIDTH, TETRIS_SQUARE_HEIGHT, (TETRIS_MS_TO_UPDATE - _level * TETRIS_MS_TO_UPDATE_DIFFERENCE), _level, blockType, color, Vector(120, 24));
+    this->_currentBlock = new Block(graphicsObj, 0, 0, TETRIS_SQUARE_WIDTH, TETRIS_SQUARE_HEIGHT, (TETRIS_MS_TO_UPDATE - _level * TETRIS_MS_TO_UPDATE_DIFFERENCE), _level, blockType, color, Vector(120, 0));
 }
 
 void Tetris::checkStatus(){
@@ -181,7 +181,7 @@ void Tetris::checkStatus(){
         }
 }
 
-void Tetris::reset(){
+void Tetris::reset(Graphics &graphicsObj){
     // this destroys all the objects but doesn't deallocate memory, only clears index
     this->_groundedSquares.clear();
     this->_groundedRects.clear();
@@ -194,7 +194,7 @@ void Tetris::reset(){
     delete this->_currentBlock;
     this->_currentBlock = nullptr;
     
-    this->_timeElapsed = 0;
+    initNewBlock(graphicsObj);
     
     this->_level = 1;
     this->_score = 0;

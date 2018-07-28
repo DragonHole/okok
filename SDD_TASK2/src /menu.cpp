@@ -13,7 +13,9 @@
 Menu::Menu(){
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
-    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 160, 220, 128, 37);
+    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 72, 128, 37);
+    
+    this->_buttons["tetrisStopMenuRestartButton"] = new Button("tetrisStopMenuRestartButton1.png", "tetrisStopMenuRestartButton2.png", 120, 122, 128, 37);
     
 }
 
@@ -30,9 +32,10 @@ void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
 
 void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
     SDL_Color color = {255, 55, 244};
-    graphicsObj.drawImage("tetrisStopMenuBase.png", 0, 0, 446, 619);
+    graphicsObj.drawImage("tetrisStopMenuBase.png", 0, 0, 374, 406);
     
     this->_buttons["tetrisStopMenuResumeButton"]->draw(graphicsObj);
+    this->_buttons["tetrisStopMenuRestartButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisWinMenu(Graphics &graphicsObj){
@@ -55,9 +58,12 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     
     if(process.getPid() == 4){
         this->_buttons["tetrisStopMenuResumeButton"]->update(event);
-        
         if(this->_buttons["tetrisStopMenuResumeButton"]->isButtonClicked())
             process.setPid(1);
+        
+        this->_buttons["tetrisStopMenuRestartButton"]->update(event);
+        if(this->_buttons["tetrisStopMenuRestartButton"]->isButtonClicked())
+            process.setPid(5);
     }
 
 }

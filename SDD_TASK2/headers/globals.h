@@ -92,7 +92,7 @@ enum CurrentProcess{
 #define TETRIS_INITIAL_FALLING_SPEED 12         // level progresses with falling speed and ms to update, so both bigger distance and faster refresh
 #define TETRIS_SPEED_CHANGE 0
 
-#define TETRIS_MS_TO_UPDATE 800                // final ms to update = MS_TO_UPDATE - level* a constant
+#define TETRIS_MS_TO_UPDATE 1500                // final ms to update = MS_TO_UPDATE - level* a constant
 #define TETRIS_MS_TO_UPDATE_DIFFERENCE 100
     
     // in-game constants

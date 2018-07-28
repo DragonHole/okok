@@ -21,9 +21,13 @@ void Game::loop(){
     
     SDL_Event event;
     bool quit = false;
-
+    
+    // Signed 16-bit samples, in system byte order, hardware specific?
+    if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) == -1)
+        std::cout<<Mix_GetError()<<std::endl;
+    
     this->_menuObj = Menu();
-    this->_process.setPid(1);
+    this->_process.setPid(3);
     
     //                              smaller the number, faster the block fall|||
     this->_tetrisObj = Tetris(this->_graphicsObj);

@@ -12,6 +12,7 @@
 #include <map>
 #include "button.h"
 #include "SDL2/SDL.h"
+#include "SDL2_mixer/SDL_mixer.h"
 
 // forward declare 
 class Graphics;
@@ -37,6 +38,11 @@ public:
 private:
     // a name for each button
     std::map<std::string, Button *> _buttons;
+    
+    Mix_Music *_bgm;
+    Mix_Chunk *_tetrisBgm;
+    Mix_Chunk *_buttonClickSound;
+    Mix_Chunk *_tetrisGameOverSound;
 };
 
 #endif /* menu_h */

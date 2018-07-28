@@ -15,7 +15,7 @@
 
 Graphics::Graphics(){
     
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     TTF_Init();
     
     //Create an application window with the following settings:

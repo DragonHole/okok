@@ -12,6 +12,7 @@
 // tetris game class
 
 #include "block.h"
+#include "SDL2_mixer/SDL_mixer.h"
 
 struct tempRect{
     tempRect(){}
@@ -59,6 +60,9 @@ private:
     int _completedRows;     // internal use
     
     Sprite *_spriteSheets[4];    // four different colors
+    Mix_Chunk *_tetrisClearLineSound;
+    Mix_Chunk *_tetrisRotateSound;
+    Mix_Chunk *_tetrisMoveSound;
 };
 
 #endif /* tetris_h */

@@ -29,6 +29,10 @@ Tetris::Tetris(Graphics &graphicsObj):
     this->_spriteSheets[1] = new Sprite(graphicsObj, "redsquare.png", 0, 0, TETRIS_SQUARE_WIDTH, TETRIS_SQUARE_HEIGHT, 0, 0);
     this->_spriteSheets[2] = new Sprite(graphicsObj, "yellowsquare.png", 0, 0, TETRIS_SQUARE_WIDTH, TETRIS_SQUARE_HEIGHT, 0, 0);
     this->_spriteSheets[3] = new Sprite(graphicsObj, "greensquare.png", 0, 0, TETRIS_SQUARE_WIDTH, TETRIS_SQUARE_HEIGHT, 0, 0);
+    
+    this->_tetrisClearLineSound = Mix_LoadWAV("tetrisClearLineSound.wav");
+    this->_tetrisRotateSound = Mix_LoadWAV("tetrisRotateSound.wav");
+    this->_tetrisMoveSound = Mix_LoadWAV("tetrisMoveSound.wav");
 }
 
 Tetris::~Tetris(){
@@ -126,11 +130,13 @@ void Tetris::draw(Graphics &graphicsObj){
 }
 
 void Tetris::move(Direction dir){
+    Mix_PlayChannel(-1, this->_tetrisMoveSound, 0);
     this->_currentBlock->Move(dir);
 }
 
 void Tetris::rotate(){
     this->_currentBlock->Rotate(this->_groundedSquares); // need to change later
+    Mix_PlayChannel(-1, this->_tetrisRotateSound, 0);
 }
 
 void Tetris::initNewBlock(Graphics &graphicsObj){
@@ -162,6 +168,7 @@ void Tetris::checkStatus(){
             _completedRows++;
             _score += TETRIS_SCORE_PER_LINE;
             
+            Mix_PlayChannel(-1, this->_tetrisClearLineSound, 0);
             for (int i=0; i<_groundedRects.size(); ++i)
                 if ((((_groundedRects[i]._rect.getY()) - 24) / TETRIS_SQUARE_HEIGHT) == line){
                     _groundedRects.erase(_groundedRects.begin() + i);

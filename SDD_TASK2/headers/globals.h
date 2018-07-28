@@ -77,6 +77,9 @@ enum CurrentProcess{
 #define TETRIS_STOP_MENU_WIDTH 374
 #define TETRIS_STOP_MENU_HEIGHT 406
 
+#define TETRIS_LOSE_MENU_WIDTH 796
+#define TETRIS_LOSE_MENU_HEIGHT 482
+
 // dimensions for EVERY square 
 #define TETRIS_SQUARE_HEIGHT 24
 #define TETRIS_SQUARE_WIDTH 24

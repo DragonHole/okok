@@ -103,6 +103,8 @@ void Game::handleInput(){
             if(_keyboardObj.isKeyPressed(SDL_SCANCODE_SPACE))
                 this->_tetrisObj.rotate();
 
+            if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
+                this->_process.setPid(5);
             break;
         }
     }
@@ -121,14 +123,15 @@ void Game::draw(double elapsedTime){
             break;}
             
         case 2: {
-            this->_timeElapsed += elapsedTime;
+            SDL_SetWindowSize(_graphicsObj.getWindow(), TETRIS_LOSE_MENU_WIDTH, TETRIS_LOSE_MENU_HEIGHT);
+//            this->_timeElapsed += elapsedTime;
             this->_menuObj.drawTetrisLoseMenu(_graphicsObj);
-        
-            // the lose menu remains for 5 seconds
-            if(_timeElapsed > 5000){
-                _timeElapsed -= 5000;
-                this->_process.setPid(1);
-            }
+//
+//            // the lose menu remains for 5 seconds
+//            if(_timeElapsed > 5000){
+//                _timeElapsed -= 5000;
+//                this->_process.setPid(1);
+//            }
             break;
         }
             

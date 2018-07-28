@@ -67,7 +67,7 @@ void Game::loop(){
         
         this->draw(ELAPSED_TIME_MS);
         
-        SDL_Delay(40);  // saves your battery and cpu :)
+        SDL_Delay(20);  // don't kill the cpu :)
     }
 }
 
@@ -77,6 +77,8 @@ void Game::update(double elapsedTime){
         case 1:{
             if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_LOSE)
                 this->_process.setPid(2);
+            if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_WIN)
+                this->_process.setPid(6);
             break;
         }
     }
@@ -132,16 +134,20 @@ void Game::draw(double elapsedTime){
 //                _timeElapsed -= 5000;
 //                this->_process.setPid(1);
 //            }
+            SDL_Color color = {255, 255, 100};
+            this->_graphicsObj.drawVarText(9, std::to_string(this->_tetrisObj.getScore()), color, 2, 258, 75);
             break;
         }
             
         case 3:{
+            SDL_SetWindowSize(_graphicsObj.getWindow(), MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+            this->_menuObj.drawMainMenu(_graphicsObj);
             break;
         }
             
         case 4:{
             SDL_SetWindowSize(_graphicsObj.getWindow(), TETRIS_STOP_MENU_WIDTH, TETRIS_STOP_MENU_HEIGHT);
-            this->_menuObj.drawTetrisStopMenu(_graphicsObj);
+            this->_menuObj.drawTetrisStopMenu(this->_graphicsObj);
             break;
         }
             

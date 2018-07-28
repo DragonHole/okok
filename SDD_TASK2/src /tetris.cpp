@@ -79,7 +79,7 @@ Scene Tetris::update(Graphics &graphicsObj, float timeElapsed){
         if(this->_groundedRects[i]._rect.getY() <= 100) //
             return TETRIS_LOSE;   // for lose screen
     
-    if(this->_level > 5)
+    if(this->_level > 8)
         return TETRIS_WIN;
     
     return NONE;
@@ -204,3 +204,10 @@ void Tetris::reset(Graphics &graphicsObj){
     this->_completedRows = 0;     // internal use
 }
 
+int Tetris::getScore(){
+    return this->_score;
+}
+
+int Tetris::getLevel(){
+    return this->_level;
+}

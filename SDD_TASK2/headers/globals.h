@@ -65,6 +65,8 @@ enum CurrentProcess{
 // ----------------Game Specific Globals----------------------------
 // Tetris
 // No reason to be accessible outside this class
+#define MAIN_MENU_WIDTH 736
+#define MAIN_MENU_HEIGHT 552
 
 #define TETRIS_WINDOW_WIDTH 288 + 150             //
 #define TETRIS_WINDOW_HEGHT 550                  // self-explanatory

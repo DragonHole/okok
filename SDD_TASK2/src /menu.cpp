@@ -13,17 +13,19 @@
 Menu::Menu(){
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
-    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 200, 128, 37);
+    this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 180, 128, 37);
     
-    this->_buttons["tetrisStopMenuRestartButton"] = new Button("tetrisStopMenuRestartButton1.png", "tetrisStopMenuRestartButton2.png", 120, 154, 128, 37);
+    this->_buttons["tetrisStopMenuRestartButton"] = new Button("tetrisStopMenuRestartButton1.png", "tetrisStopMenuRestartButton2.png", 120, 240, 128, 37);
     
-    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton.png", "tetrisLoseMenuReplayButton.png", 100, 335, 216, 89);
+    this->_buttons["tetrisStopMenuMainMenuButton"] = new Button("tetrisStopMenuMainMenuButton1.png", "tetrisStopMenuMainMenuButton2.png", 120, 300, 128, 37);
+    
+    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 100, 335, 216, 89);
 }
 
 Menu::~Menu(){}
 
 void Menu::drawMainMenu(Graphics &graphicsObj){
-    
+    graphicsObj.drawImage("mainMenuBase.png", 0, 0, 736, 552);
 }
 
 void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
@@ -37,10 +39,7 @@ void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
     
     this->_buttons["tetrisStopMenuResumeButton"]->draw(graphicsObj);
     this->_buttons["tetrisStopMenuRestartButton"]->draw(graphicsObj);
-}
-
-void Menu::drawTetrisWinMenu(Graphics &graphicsObj){
-    
+    this->_buttons["tetrisStopMenuMainMenuButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
@@ -73,6 +72,10 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["tetrisStopMenuRestartButton"]->update(event);
         if(this->_buttons["tetrisStopMenuRestartButton"]->isButtonClicked())
             process.setPid(5);
+        
+        this->_buttons["tetrisStopMenuMainMenuButton"]->update(event);
+        if(this->_buttons["tetrisStopMenuMainMenuButton"]->isButtonClicked())
+            process.setPid(3);
     }
 
 }

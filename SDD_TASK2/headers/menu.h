@@ -30,7 +30,6 @@ public:
     
     // pulse menu with restart and quit buttons 
     void drawTetrisStopMenu(Graphics &graphicsObj);
-    void drawTetrisWinMenu(Graphics &graphicsObj);
     void drawTetrisLoseMenu(Graphics &graphicsObj);
 
     void handleButtonEvent(SDL_Event &event, Process &process);

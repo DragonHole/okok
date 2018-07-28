@@ -43,6 +43,9 @@ public:
     
     void reset(Graphics &graphicsObj);
     
+    int getScore();
+    int getLevel();
+    
 private:
     
     std::vector<Rect> _groundedSquares;     // 无奈...

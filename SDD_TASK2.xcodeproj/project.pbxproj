@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C540D6F210A002B00E4F75F /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C540D6E210A002B00E4F75F /* button.cpp */; };
 		5C540D71210C87B800E4F75F /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C540D70210C87B800E4F75F /* SDL2_mixer.framework */; };
+		5C540D74210D511E00E4F75F /* login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C540D73210D511E00E4F75F /* login.cpp */; };
 		5C5885A52100434600794B11 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5885A42100434600794B11 /* SDL2_ttf.framework */; };
 		5C6CD59F20E70290000DDA89 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C6CD59E20E70290000DDA89 /* SDL2.framework */; };
 		5C6CD5A120E70374000DDA89 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C6CD5A020E70374000DDA89 /* SDL2_image.framework */; };
@@ -39,6 +40,8 @@
 		5C540D6D210A001F00E4F75F /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = headers/button.h; sourceTree = "<group>"; };
 		5C540D6E210A002B00E4F75F /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = "src /button.cpp"; sourceTree = "<group>"; };
 		5C540D70210C87B800E4F75F /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Documents/SDL_Libraries/SDL2_mixer.framework; sourceTree = "<group>"; };
+		5C540D72210D4C4C00E4F75F /* login.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = login.h; path = headers/login.h; sourceTree = "<group>"; };
+		5C540D73210D511E00E4F75F /* login.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = login.cpp; path = "src /login.cpp"; sourceTree = "<group>"; };
 		5C5885A42100434600794B11 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Documents/SDL_Libraries/SDL2_ttf.framework; sourceTree = "<group>"; };
 		5C6CD57320E701EE000DDA89 /* SDD_TASK2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SDD_TASK2; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C6CD59E20E70290000DDA89 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Documents/SDL_Libraries/SDL2.framework; sourceTree = "<group>"; };
@@ -118,6 +121,7 @@
 				5C6CD5B820EF2000000DDA89 /* tetris.cpp */,
 				5CC405132101A6AE0012ECAB /* process.cpp */,
 				5CC405162101FEA70012ECAB /* menu.cpp */,
+				5C540D73210D511E00E4F75F /* login.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -136,6 +140,7 @@
 				5C6CD5AA20E7042E000DDA89 /* keyboard.h */,
 				5CC405122101A4BB0012ECAB /* process.h */,
 				5CC405152101F9F20012ECAB /* menu.h */,
+				5C540D72210D4C4C00E4F75F /* login.h */,
 			);
 			name = headers;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C540D74210D511E00E4F75F /* login.cpp in Sources */,
 				5C6CD5B220E70441000DDA89 /* block.cpp in Sources */,
 				5C540D6F210A002B00E4F75F /* button.cpp in Sources */,
 				5C6CD5B920EF2000000DDA89 /* tetris.cpp in Sources */,

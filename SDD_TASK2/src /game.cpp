@@ -71,7 +71,7 @@ void Game::loop(){
         
         this->draw(ELAPSED_TIME_MS);
         
-        SDL_Delay(20);  // don't kill the cpu :)
+        SDL_Delay(30);  // don't kill the cpu :)
     }
 }
 
@@ -158,6 +158,11 @@ void Game::draw(double elapsedTime){
         case 5:{
             this->_tetrisObj.reset(this->_graphicsObj);
             this->_process.setPid(1);
+            break;
+        }
+            
+        case 6:{
+            this->_menuObj.drawMainMenuCreateAccountMenu(this->_graphicsObj);
             break;
         }
             

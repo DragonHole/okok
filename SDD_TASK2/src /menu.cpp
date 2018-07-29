@@ -21,7 +21,11 @@ Menu::Menu(){
     
     this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 100, 335, 216, 89);
     
-    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 420, 270, 220, 51);
+    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 450, 270, 220, 51);
+    
+    this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 560, 10, 170, 61);
+    
+    this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 515, 165, 40, 42);
     
     this->_bgm = Mix_LoadMUS("bgm.mp3");
     this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
@@ -35,9 +39,17 @@ void Menu::drawMainMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("mainMenuBase.png", 0, 0, 736, 552);
     
     this->_buttons["mainMenuTetrisButton"]->draw(graphicsObj);
+    this->_buttons["mainMenuCreateAccountButton"]->draw(graphicsObj);
     
     if(Mix_PlayingMusic() == 0)
         Mix_PlayMusic(this->_bgm, -1);
+}
+
+void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
+    graphicsObj.drawImage("mainMenuBase.png", 0, 0, 726, 552);
+    graphicsObj.drawImage("MainMenuCreateAccountMenuBase.png", 170, 120, 400, 321);
+    
+    this->_buttons["mainMenuCreateAccountMenuBackButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
@@ -61,6 +73,9 @@ void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
 void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("tetrisLoseMenu.png", 0, 0, 796, 482);
     this->_buttons["tetrisLoseMenuReplayButton"]->draw(graphicsObj);
+    
+    if(Mix_Playing(1))
+        Mix_Pause(1);
     
     if(Mix_Playing(3) == 0)
         Mix_PlayChannel(3, this->_tetrisGameOverSound, -1);
@@ -94,6 +109,12 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             Mix_PauseMusic();
             process.setPid(5);
         }
+        
+        this->_buttons["mainMenuCreateAccountButton"]->update(event);
+        if(this->_buttons["mainMenuCreateAccountButton"]->isButtonClicked()){
+           Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            process.setPid(6);
+        }
     }
     
     if(process.getPid() == 4){
@@ -118,5 +139,12 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             process.setPid(3);
         }
     }
-
+    
+    if(process.getPid() == 6){
+        this->_buttons["mainMenuCreateAccountMenuBackButton"]->update(event);
+        if(this->_buttons["mainMenuCreateAccountMenuBackButton"]->isButtonClicked()){
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            process.setPid(3);
+        }
+    }
 }

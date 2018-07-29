@@ -25,6 +25,7 @@ public:
     
     // draw menu(s), includes texts and images
     void drawMainMenu(Graphics &graphicsObj);
+    void drawMainMenuCreateAccountMenu(Graphics &graphicsObj);
     
     // basically only the stop button in the gaming-screen
     void drawTetrisDefaultMenu(Graphics &graphicsObj);
@@ -43,6 +44,8 @@ private:
     Mix_Chunk *_tetrisBgm;
     Mix_Chunk *_buttonClickSound;
     Mix_Chunk *_tetrisGameOverSound;
+    
+    std::string _loginTypingStatusLook;
 };
 
 #endif /* menu_h */

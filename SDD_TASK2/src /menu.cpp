@@ -106,6 +106,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["tetrisStopMenuRestartButton"]->update(event);
         if(this->_buttons["tetrisStopMenuRestartButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            Mix_PlayChannel(1, this->_tetrisBgm, -1);
             process.setPid(5);
         }
         

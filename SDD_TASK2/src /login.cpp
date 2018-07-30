@@ -11,11 +11,11 @@
 
 Login::Login(){}
 
-void Login::addUser(std::string username, int password){
-    std::hash<int> hash;
+void Login::addUser(std::string username, std::string password){
+    std::hash<std::string> hash;
     size_t passwordHash = hash(password);
-    std::cout<<"\nrecrived password: "<<password<<std::endl;
-    std::cout<<"\nhash created:"<<passwordHash<<std::endl;
+    std::cout<<"received password: "<<password<<std::endl;
+    std::cout<<"hash created:"<<passwordHash<<std::endl;
     
     if(this->_users.count(username) == 0)
         this->_users[username]._passwordHash = passwordHash;

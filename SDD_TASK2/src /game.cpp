@@ -40,8 +40,10 @@ void Game::loop(){
         while(SDL_PollEvent(&_event))
         {
     // don't bother with _heldKeys yet
-            if(_event.type == SDL_KEYDOWN)
+            if(_event.type == SDL_KEYDOWN){
                 this->_keyboardObj.keyDown(_event);
+                this->_menuObj.handleKeyboardEvent(this->_event, this->_process);
+            }
             
             if(_event.type == SDL_KEYUP)
                 this->_keyboardObj.keyUp(_event);
@@ -109,11 +111,6 @@ void Game::handleInput(){
 
             if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
                 this->_process.setPid(5);
-            break;
-        }
-        
-        case 6:{
-            this->_menuObj.handleKeyboardEvent(this->_event, this->_process);
             break;
         }
     }

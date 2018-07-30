@@ -10,7 +10,7 @@
 #include "graphics.h"
 #include "process.h"
 
-Menu::Menu(){
+Menu::Menu():_clickedOnUsernameOrPassword(0){
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
     this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 180, 128, 37);
@@ -162,7 +162,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         if(this->_buttons["mainMenuCreateAccountMenuCreateButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             // handle login details
-            this->_loginObj.addUser(this->_loginUsernameString, std::atoi(this->_loginPasswordString.c_str()));
+            this->_loginObj.addUser(this->_loginUsernameString, this->_loginPasswordString);
             this->_loginObj.writeUserDetailToFile();
         }
     }
@@ -171,12 +171,12 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
 void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
     if(process.getPid() == 6){
         if(this->_clickedOnUsernameOrPassword == 0){
-            this->_loginUserNameTypingStatusLook += (SDL_GetKeyName(event.key.keysym.scancode));
-            this->_loginUsernameString += (SDL_GetKeyName(event.key.keysym.scancode));
+            this->_loginUserNameTypingStatusLook += (SDL_GetKeyName(event.key.keysym.sym));
+            this->_loginUsernameString += (SDL_GetKeyName(event.key.keysym.sym));
         }
-        else if(this->_clickedOnUsernameOrPassword == 0){
+         if(this->_clickedOnUsernameOrPassword == 0){
             this->_loginPasswordTypingStatusLook += "*";
-            this->_loginPasswordString += (SDL_GetKeyName(event.key.keysym.scancode));
+            this->_loginPasswordString += (SDL_GetKeyName(event.key.keysym.sym));
         }
     }
 }

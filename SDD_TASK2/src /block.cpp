@@ -194,8 +194,8 @@ void Block::Rotate(std::vector<Rect> otherRect){
         int y4 = (_squares[1].getX()-_squares[3].getX()) + _squares[1].getY();
         
         bool canMove = false;
-    // todo: left side collision and top collision(or leave it)?
-        if(((x1 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((x3 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((x4 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((y1 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT) && ((y3 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT) && ((y4 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT))
+    // todo: left side collision and top collision(or leave it)? // update:added and fixed
+        if(((x1 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((x3 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((x4 + TETRIS_SQUARE_WIDTH) < TETRIS_GAME_AREA_WIDTH) && ((y1 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT) && ((y3 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT) && ((y4 + 2*TETRIS_SQUARE_HEIGHT) < TETRIS_GAME_AREA_HEIGHT) && ((x1) > 0) && ((x3) > 0) && ((x4) > 0)) // 最后这三个就是我后来加的
                 canMove = true;
         
         for(int i = 0; (i-1) < otherRect.size(); i++)

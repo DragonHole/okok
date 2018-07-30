@@ -38,6 +38,9 @@ public:
     void handleButtonEvent(SDL_Event &event, Process &process);
     void handleKeyboardEvent(SDL_Event &event, Process &process);
     
+    // just for Login::readUserDetailFromFile(), haha
+    void loadUserData();
+    
 private:
     // a name for each button
     std::map<std::string, Button *> _buttons;
@@ -55,8 +58,9 @@ private:
     std::string _loginUsernameString;
     std::string _loginPasswordString;
     
-    // if user clicked on username space then this is set to 1, 2 if clicked on password space, otherwise 0
+    // if user clicked on username space then this is set to 1, 2 if clicked on password space, otherwise 0(also default)
     int _clickedOnUsernameOrPassword;
+    int _errorCode;
     
     Login _loginObj;
 };

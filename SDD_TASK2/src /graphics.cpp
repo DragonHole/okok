@@ -30,7 +30,7 @@ Graphics::Graphics(){
     _renderer= SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
     SDL_RenderClear(_renderer);
     
-    this->_font = TTF_OpenFont("font.ttf", 26);
+    this->_font = TTF_OpenFont("font.ttf", 20);
     if(!_font)
         printf("TTF_OpenFont: %s\n", TTF_GetError());
     

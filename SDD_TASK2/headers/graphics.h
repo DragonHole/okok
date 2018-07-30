@@ -76,6 +76,8 @@ private:
 // 5 - "Next Level"
 // 6 - next level value
 // 7 - "Lines completed"
-// 8 - lines completed value 
+// 8 - lines completed value
+// 9 - Username real-time display in create account page
+// 10 - Same as above but for password 
+// (11 -> 16) - create account page error message
 
-// MAIN MENU

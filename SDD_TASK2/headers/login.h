@@ -27,7 +27,7 @@ class Login{
 public:
     Login();
     
-    void addUser(std::string username, std::string password);
+    int addUser(std::string username, std::string password);
     
     bool checkCredential(std::string username, int password);
     

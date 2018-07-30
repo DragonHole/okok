@@ -26,9 +26,10 @@ void Game::loop(){
         std::cout<<Mix_GetError()<<std::endl;
     
     this->_menuObj = Menu();
+    this->_menuObj.loadUserData();  // calls Login::readUserDetailFromFile
+    
     this->_process.setPid(3);
     
-    //                              smaller the number, faster the block fall|||
     this->_tetrisObj = Tetris(this->_graphicsObj);
 
     double LastUpdateTime = SDL_GetTicks();

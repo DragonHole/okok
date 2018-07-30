@@ -11,16 +11,28 @@
 
 Login::Login(){}
 
-void Login::addUser(std::string username, std::string password){
+int Login::addUser(std::string username, std::string password){
     std::hash<std::string> hash;
     size_t passwordHash = hash(password);
-    std::cout<<"received password: "<<password<<std::endl;
-    std::cout<<"hash created:"<<passwordHash<<std::endl;
+    int result;
     
-    if(this->_users.count(username) == 0)
+    if(this->_users.count(username) != 0)
+        result = 1;
+    else if(strlen(username.c_str()) == 0 && strlen(password.c_str()) > 0)
+        result = 2;
+    else if(strlen(password.c_str()) == 0 && strlen(username.c_str()) > 0)
+        result = 3;
+    else if((strcmp(username.c_str(), password.c_str()) == 0) && strlen(password.c_str()) > 0 && strlen(username.c_str()) > 0)
+        result = 4;
+    else if(strlen(username.c_str()) == 0 && strlen(password.c_str()) == 0)
+        result = 5;
+    
+    else{
         this->_users[username]._passwordHash = passwordHash;
-    else
-        std::cerr<<"\n couldn't create account, user "<<username<<" already existed"<<std::endl;
+        result = 0;
+    }
+    
+    return result;
 }
 
 bool Login::checkCredential(std::string username, int password){

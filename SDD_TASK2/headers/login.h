@@ -13,6 +13,7 @@
 #include <string>
 #include <functional>
 #include <iostream>
+#include <fstream>
 
 struct User{
     size_t _passwordHash;
@@ -35,6 +36,12 @@ public:
     int retrieveScore(std::string username);
     
     void setScore(std::string username, int value);
+    
+    // called when the game buttons on main menu are clicked, this is supposed to run at the start but due to _loginObj is in menu class and menu class can't communicate with game class effectively(actually it can), but just deal with it...
+    void readUserDetailFromFile();
+    
+    // called when create account button, exit button(on gameover screen) is pressed
+    void writeUserDetailToFile();
     
 private:
     std::map<std::string, User> _users;

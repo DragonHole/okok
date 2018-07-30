@@ -27,6 +27,8 @@ Menu::Menu(){
     
     this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 515, 165, 40, 42);
     
+    this->_buttons["mainMenuCreateAccountMenuCreateButton"] = new Button("mainMenuCreateAccountMenuCreateButton1.png", "mainMenuCreateAccountMenuCreateButton2.png", 260, 372, 215, 52);
+    
     this->_bgm = Mix_LoadMUS("bgm.mp3");
     this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
     this->_tetrisBgm = Mix_LoadWAV("tetrisBgm.wav");
@@ -50,6 +52,7 @@ void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("MainMenuCreateAccountMenuBase.png", 170, 120, 400, 321);
     
     this->_buttons["mainMenuCreateAccountMenuBackButton"]->draw(graphicsObj);
+    this->_buttons["mainMenuCreateAccountMenuCreateButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
@@ -105,6 +108,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     if(process.getPid() == 3){
         this->_buttons["mainMenuTetrisButton"]->update(event);
         if(this->_buttons["mainMenuTetrisButton"]->isButtonClicked()){
+            this->_loginObj.readUserDetailFromFile();
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             Mix_PauseMusic();
             Mix_PlayChannel(1, this->_tetrisBgm, -1);
@@ -114,6 +118,13 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["mainMenuCreateAccountButton"]->update(event);
         if(this->_buttons["mainMenuCreateAccountButton"]->isButtonClicked()){
            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            
+            // clear the string before another round of input:)
+            this->_loginUsernameString.clear();
+            this->_loginPasswordString.clear();
+            this->_loginUserNameTypingStatusLook.clear();
+            this->_loginPasswordTypingStatusLook.clear();
+            
             process.setPid(6);
         }
     }
@@ -146,6 +157,26 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         if(this->_buttons["mainMenuCreateAccountMenuBackButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             process.setPid(3);
+        }
+        this->_buttons["mainMenuCreateAccountMenuCreateButton"]->update(event);
+        if(this->_buttons["mainMenuCreateAccountMenuCreateButton"]->isButtonClicked()){
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            // handle login details
+            this->_loginObj.addUser(this->_loginUsernameString, std::atoi(this->_loginPasswordString.c_str()));
+            this->_loginObj.writeUserDetailToFile();
+        }
+    }
+}
+
+void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
+    if(process.getPid() == 6){
+        if(this->_clickedOnUsernameOrPassword == 0){
+            this->_loginUserNameTypingStatusLook += (SDL_GetKeyName(event.key.keysym.scancode));
+            this->_loginUsernameString += (SDL_GetKeyName(event.key.keysym.scancode));
+        }
+        else if(this->_clickedOnUsernameOrPassword == 0){
+            this->_loginPasswordTypingStatusLook += "*";
+            this->_loginPasswordString += (SDL_GetKeyName(event.key.keysym.scancode));
         }
     }
 }

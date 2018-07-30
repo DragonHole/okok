@@ -11,6 +11,7 @@
 
 #include <map>
 #include "button.h"
+#include "login.h"
 #include "SDL2/SDL.h"
 #include "SDL2_mixer/SDL_mixer.h"
 
@@ -35,6 +36,7 @@ public:
     void drawTetrisLoseMenu(Graphics &graphicsObj);
 
     void handleButtonEvent(SDL_Event &event, Process &process);
+    void handleKeyboardEvent(SDL_Event &event, Process &process);
     
 private:
     // a name for each button
@@ -45,7 +47,18 @@ private:
     Mix_Chunk *_buttonClickSound;
     Mix_Chunk *_tetrisGameOverSound;
     
-    std::string _loginTypingStatusLook;
+    // for the look
+    std::string _loginUserNameTypingStatusLook;
+    std::string _loginPasswordTypingStatusLook;
+    
+    // for acutal processing
+    std::string _loginUsernameString;
+    std::string _loginPasswordString;
+    
+    // if user clicked on username space then this is set to 1, 2 if clicked on password space, otherwise 0
+    int _clickedOnUsernameOrPassword;
+    
+    Login _loginObj;
 };
 
 #endif /* menu_h */

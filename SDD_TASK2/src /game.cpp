@@ -19,7 +19,6 @@ Game::~Game(){}
 
 void Game::loop(){
     
-    SDL_Event event;
     bool quit = false;
     
     // Signed 16-bit samples, in system byte order, hardware specific?
@@ -38,29 +37,28 @@ void Game::loop(){
     {
         _keyboardObj.newFrame();
         
-        while(SDL_PollEvent(&event))
+        while(SDL_PollEvent(&_event))
         {
     // don't bother with _heldKeys yet
-            if(event.type == SDL_KEYDOWN)
-                this->_keyboardObj.keyDown(event);
+            if(_event.type == SDL_KEYDOWN)
+                this->_keyboardObj.keyDown(_event);
             
-            if(event.type == SDL_KEYUP)
-                this->_keyboardObj.keyUp(event);
+            if(_event.type == SDL_KEYUP)
+                this->_keyboardObj.keyUp(_event);
             
-            if(event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
-                this->_menuObj.handleButtonEvent(event, this->_process);
+            if(_event.type == SDL_MOUSEMOTION || _event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP)
+                this->_menuObj.handleButtonEvent(_event, this->_process);
             
     // close the window when the red close button is pressed
-            if(event.type == SDL_QUIT)
+            if(_event.type == SDL_QUIT)
                 return;
             
     // close the window when key esc is pressed
-            if(event.key.keysym.sym == SDLK_ESCAPE)
+            if(_event.key.keysym.sym == SDLK_ESCAPE)
                 quit=true;
         }
         
-        printf("\ncurrent pid: %d", _process.getPid());
-        
+        // really it's only handling keyboard input...
         this->handleInput();
         
         const int CURRENT_TIME_MS = SDL_GetTicks();
@@ -111,6 +109,11 @@ void Game::handleInput(){
 
             if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
                 this->_process.setPid(5);
+            break;
+        }
+        
+        case 6:{
+            this->_menuObj.handleKeyboardEvent(this->_event, this->_process);
             break;
         }
     }

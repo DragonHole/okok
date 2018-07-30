@@ -27,12 +27,12 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		5C6CD57120E701EE000DDA89 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -321,8 +321,11 @@
 		5C6CD57B20E701EE000DDA89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = MHZ2S6GK7K;
-				FRAMEWORK_SEARCH_PATHS = /Users/wlin19/Documents/SDL_Libraries;
+				FRAMEWORK_SEARCH_PATHS = SDD_TASK2/frameworks;
+				HEADER_SEARCH_PATHS = SDD_TASK2/headers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -330,8 +333,11 @@
 		5C6CD57C20E701EE000DDA89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = MHZ2S6GK7K;
-				FRAMEWORK_SEARCH_PATHS = /Users/wlin19/Documents/SDL_Libraries;
+				FRAMEWORK_SEARCH_PATHS = SDD_TASK2/frameworks;
+				HEADER_SEARCH_PATHS = SDD_TASK2/headers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

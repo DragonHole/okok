@@ -33,7 +33,7 @@ public:
     void draw(double elapsedTime);
     
 private:
- 
+    SDL_Event _event;
     Graphics _graphicsObj;
     Keyboard _keyboardObj;
     Menu _menuObj;

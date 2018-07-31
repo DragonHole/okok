@@ -11,6 +11,7 @@
 #include "process.h"
 
 Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
+    //------------------------------------TETRIS-UI-ELEMENTS-----------------------------------------
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
     this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 180, 128, 37);
@@ -19,15 +20,20 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     
     this->_buttons["tetrisStopMenuMainMenuButton"] = new Button("tetrisStopMenuMainMenuButton1.png", "tetrisStopMenuMainMenuButton2.png", 120, 300, 128, 37);
     
-    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 120, 320, 150, 62);
+    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 60, 320, 216, 90);
     
     this->_buttons["tetrisLoseMenuSaveScoreButton"] = new Button("tetrisLoseMenuSaveScoreButton1.png", "tetrisLoseMenuSaveScoreButton2.png", 300, 320, 150, 62);
     
-    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 450, 270, 220, 51);
+    this->_buttons["tetrisLoseMenuMainMenuButton"] = new Button("tetrisLoseMenuMainMenuButton1.png", "tetrisLoseMenuMainMenuButton2.png", 300, 410, 150, 62);
+    
+    //--------------------------------------MAIN-MENU-ELEMENTS----------------------------------------
+    
+    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 430, 270, 220, 51);
     
     this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 558, 10, 170, 61);
     
-     this->_buttons["mainMenuLoginButton"] = new Button("mainMenuLoginButton1.png", "mainMenuLoginButton2.png", 10, 15, 170, 61);
+    this->_buttons["mainMenuLoginButton"] = new Button("mainMenuLoginButton1.png", "mainMenuLoginButton2.png", 558, 70, 170, 61);
+    this->_buttons["mainMenuLogoutButton"] = new Button("mainMenuLogoutButton1.png", "mainMenuLogoutButton2.png", 558, 70, 170, 61);
     
     this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 515, 165, 40, 42);
     
@@ -52,7 +58,11 @@ void Menu::drawMainMenu(Graphics &graphicsObj){
     
     this->_buttons["mainMenuTetrisButton"]->draw(graphicsObj);
     this->_buttons["mainMenuCreateAccountButton"]->draw(graphicsObj);
-    this->_buttons["mainMenuLoginButton"]->draw(graphicsObj);
+    
+    if(this->_currentUser.empty())
+        this->_buttons["mainMenuLoginButton"]->draw(graphicsObj);
+    else
+        this->_buttons["mainMenuLogoutButton"]->draw(graphicsObj);
     
     if(Mix_PlayingMusic() == 0)
         Mix_PlayMusic(this->_bgm, -1);
@@ -145,8 +155,6 @@ void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
         Mix_Resume(1);
     else if(Mix_Playing(1) == 0)
         Mix_PlayChannel(1, _tetrisBgm, -1);
-    
-    this->_buttons["mainMenuLoginMenuLoginButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
@@ -162,11 +170,12 @@ void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("tetrisLoseMenu.png", 0, 0, 796, 482);
     this->_buttons["tetrisLoseMenuReplayButton"]->draw(graphicsObj);
     this->_buttons["tetrisLoseMenuSaveScoreButton"]->draw(graphicsObj);
+    this->_buttons["tetrisLoseMenuMainMenuButton"]->draw(graphicsObj);
     
     if(Mix_Playing(1))
         Mix_Pause(1);
     
-    if(Mix_Playing(3) == 0)
+    if(Mix_Playing(3) == 0 || Mix_Paused(3))
         Mix_PlayChannel(3, this->_tetrisGameOverSound, -1);
 }
 
@@ -185,6 +194,8 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     if(process.getPid() == 2){
         this->_buttons["tetrisLoseMenuReplayButton"]->update(event);
         if(this->_buttons["tetrisLoseMenuReplayButton"]->isButtonClicked()){
+            Mix_Pause(3);
+            Mix_PlayChannel(1, this->_tetrisBgm, -1);
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             process.setPid(5);
         }
@@ -192,6 +203,14 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["tetrisLoseMenuSaveScoreButton"]->update(event);
         if(this->_buttons["tetrisLoseMenuSaveScoreButton"]->isButtonClicked())
             this->_loginObj.writeUserDetailToFile();
+        
+        this->_buttons["tetrisLoseMenuMainMenuButton"]->update(event);
+        if(this->_buttons["tetrisLoseMenuMainMenuButton"]->isButtonClicked()){
+            Mix_Pause(3);
+            Mix_RewindMusic();
+            Mix_PlayMusic(this->_bgm, -1);
+            process.setPid(3);
+        }
     }
     
     if(process.getPid() == 3){
@@ -215,18 +234,26 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             
             process.setPid(6);
         }
-        
-        this->_buttons["mainMenuLoginButton"]->update(event);
-        if(this->_buttons["mainMenuLoginButton"]->isButtonClicked()){
-            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+        if(this->_currentUser.empty()){
+            this->_buttons["mainMenuLoginButton"]->update(event);
+            if(this->_buttons["mainMenuLoginButton"]->isButtonClicked()){
+                Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             
-            // clear the string before another round of input:)
-            this->_loginUsernameString.clear();
-            this->_loginPasswordString.clear();
-            this->_loginUserNameTypingStatusLook.clear();
-            this->_loginPasswordTypingStatusLook.clear();
+                // clear the string before another round of input:)
+                this->_loginUsernameString.clear();
+                this->_loginPasswordString.clear();
+                this->_loginUserNameTypingStatusLook.clear();
+                this->_loginPasswordTypingStatusLook.clear();
             
-            process.setPid(7);
+                process.setPid(7);
+            }
+        }
+        else{
+            this->_buttons["mainMenuLogoutButton"]->update(event);
+            if(this->_buttons["mainMenuLogoutButton"]->isButtonClicked()){
+                Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+                this->_currentUser.clear();
+            }
         }
     }
     

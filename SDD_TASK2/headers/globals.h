@@ -46,6 +46,12 @@ enum Color{
     RED, BLUE, GREEN, YELLOW
 };
 
+enum Scene{
+    NONE,
+    TETRIS_LOSE,
+    TETRIS_WIN
+};
+
 // set offsets for sprites, very handy little utility
 struct Vector{
     int _x, _y;
@@ -62,12 +68,13 @@ enum CurrentProcess{
     
 };
 
-// ----------------Game Specific Globals----------------------------
-// Tetris
-// No reason to be accessible outside this class
+// main menu dimensions
 #define MAIN_MENU_WIDTH 736
 #define MAIN_MENU_HEIGHT 552
 
+// ----------------Game Specific Globals----------------------------
+// Tetris
+// No reason to be accessible outside this class
 #define TETRIS_WINDOW_WIDTH 288 + 150             //
 #define TETRIS_WINDOW_HEGHT 550                  // self-explanatory
 
@@ -92,7 +99,7 @@ enum CurrentProcess{
 #define TETRIS_INITIAL_FALLING_SPEED 12         // level progresses with falling speed and ms to update, so both bigger distance and faster refresh
 #define TETRIS_SPEED_CHANGE 0
 
-#define TETRIS_MS_TO_UPDATE 1500                // final ms to update = MS_TO_UPDATE - level* a constant
+#define TETRIS_MS_TO_UPDATE 800                // final ms to update = MS_TO_UPDATE - level* a constant
 #define TETRIS_MS_TO_UPDATE_DIFFERENCE 100
     
     // in-game constants
@@ -125,10 +132,17 @@ enum BlockType
     BACKWARDS_S_BLOCK,	// 反向S形
 };
 
-enum Scene{
-    NONE,
-    TETRIS_LOSE,
-    TETRIS_WIN
-};
+// -------------------------------STRING-MEMORY--------------------------------
+#define STRING_MEM_WINDOW_HEIGHT 
+#define STRING_MEM_WINDOW_WIDTH
+
+#define STRING_MEM_STOP_MENU_HEIGHT
+#define STRING_MEM_STOP_MENU_WIDTH
+
+#define STRING_MEM_INITIAL_LEVEL_TIME
+#define STRING_MEM_LEVEL_TIME_DIFF 
+
+#define STRING_MEM_SCORE_EXTRA_CONSTANT 10   // give extra reward as level highers
+#define STRING_MEM_SCORE_PER_LEVEL 50        // because only one question each level. Final score added = level*ScorePerLevel+level*constant
 
 #endif /* globals_h */

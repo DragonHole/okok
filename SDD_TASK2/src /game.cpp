@@ -80,10 +80,15 @@ void Game::update(double elapsedTime){
     
     switch(this->_process.getPid()){
         case 1:{
-            if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_LOSE)
+            if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_LOSE){
                 this->_process.setPid(2);
-            if(this->_tetrisObj.update(this->_graphicsObj, elapsedTime) == Scene::TETRIS_WIN)
-                this->_process.setPid(6);
+                
+                if(!this->_loaded){
+                    this->_menuObj.getScoreFromGame(this->_tetrisObj.getScore());
+                    _loaded = true;
+                }
+            }
+
             break;
         }
     }
@@ -91,7 +96,6 @@ void Game::update(double elapsedTime){
 
 void Game::handleInput(){
     // commands here should be accessible globally
-    
     if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
         this->_process.setPid(2);
     
@@ -109,9 +113,7 @@ void Game::handleInput(){
     
             if(_keyboardObj.isKeyPressed(SDL_SCANCODE_SPACE))
                 this->_tetrisObj.rotate();
-
-            if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
-                this->_process.setPid(5);
+            
             break;
         }
     }
@@ -164,6 +166,11 @@ void Game::draw(double elapsedTime){
             
         case 6:{
             this->_menuObj.drawMainMenuCreateAccountMenu(this->_graphicsObj);
+            break;
+        }
+            
+        case 7:{
+            this->_menuObj.drawMainMenuLoginMenu(this->_graphicsObj);
             break;
         }
             

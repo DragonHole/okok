@@ -27,6 +27,7 @@ public:
     // draw menu(s), includes texts and images
     void drawMainMenu(Graphics &graphicsObj);
     void drawMainMenuCreateAccountMenu(Graphics &graphicsObj);
+    void drawMainMenuLoginMenu(Graphics &graphicsObj);
     
     // basically only the stop button in the gaming-screen
     void drawTetrisDefaultMenu(Graphics &graphicsObj);
@@ -38,8 +39,11 @@ public:
     void handleButtonEvent(SDL_Event &event, Process &process);
     void handleKeyboardEvent(SDL_Event &event, Process &process);
     
-    // just for Login::readUserDetailFromFile(), haha
+    // just for Login::readUserDetailFromFile(), haha 作为传递介质(login->menu->game)
     void loadUserData();
+    
+    // this one if much more interesting，从(login->menu->game->tetris) used as an interface from Login class to Tetris class
+    void getScoreFromGame(int value); // value is added to current user's score
     
 private:
     // a name for each button
@@ -58,9 +62,13 @@ private:
     std::string _loginUsernameString;
     std::string _loginPasswordString;
     
+    // current loged in user
+    std::string _currentUser;
+    
     // if user clicked on username space then this is set to 1, 2 if clicked on password space, otherwise 0(also default)
     int _clickedOnUsernameOrPassword;
     int _errorCode;
+    int _isCredentialValid;
     
     Login _loginObj;
 };

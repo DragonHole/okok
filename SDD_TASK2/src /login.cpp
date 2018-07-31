@@ -35,15 +35,28 @@ int Login::addUser(std::string username, std::string password){
     return result;
 }
 
-bool Login::checkCredential(std::string username, int password){
-    std::hash<int> hash;
+int Login::checkCredential(std::string username, std::string password){
+    std::hash<std::string> hash;
     size_t passwordHash = hash(password);
+    int result;
     
-    if(this->_users.count(username) == 0)
-        std::cout<<"User "<<username<<" not found in database";
+    if(username.empty() && password.empty())
+        result = 5;
+    else if(username.empty() && !password.empty())
+        result = 3;
+    else if(!username.empty() && password.empty())
+        result = 4;
+    else if (this->_users.count(username) == 0)
+        result = 2;
+    else if(passwordHash != this->_users[username]._passwordHash)
+        result = 6;
+
+    else if(passwordHash == this->_users[username]._passwordHash){
+        this->_users[username]._passwordHash = passwordHash;
+        result = 1;
+    }
     
-    // still return result even if user not present
-    return (this->_users[username]._passwordHash == passwordHash);
+    return result;
 }
 
 int Login::retrieveScore(std::string username){
@@ -60,7 +73,7 @@ void Login::removeUser(std::string username){
 
 void Login::writeUserDetailToFile(){
     std::ofstream ostream("users.txt");
-    
+    std::cout<<"\nwritten to file"<<std::endl;
     // if can't open file then exit
     if(!ostream){
         std::cerr<<"\n error opening user.txt"<<std::endl;
@@ -88,5 +101,6 @@ void Login::readUserDetailFromFile(){
     while(istream>>username && istream>>password && istream>>score){
         this->_users[username]._passwordHash = password;
         this->_users[username]._score = score;
+        std::cout<<"Loaded user: "<<username<<" with Password: "<<password<<" and score "<<score<<std::endl;
     }
 }

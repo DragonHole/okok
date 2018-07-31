@@ -41,6 +41,9 @@ private:
     Tetris _tetrisObj;
     Process _process;
     
+    // just for Menu::getScoreFromGame(), yea.. i'm acting shamelessly, bad:(
+    bool _loaded;
+    
     double _timeElapsed;
 };
 

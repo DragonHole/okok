@@ -29,7 +29,7 @@ public:
     
     int addUser(std::string username, std::string password);
     
-    bool checkCredential(std::string username, int password);
+    int checkCredential(std::string username, std::string password);
     
     void removeUser(std::string username);
     

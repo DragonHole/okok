@@ -10,7 +10,7 @@
 #include "graphics.h"
 #include "process.h"
 
-Menu::Menu():_clickedOnUsernameOrPassword(0){
+Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     this->_buttons["tetrisPauseButton"] = new Button("tetrisPauseButton1.png", "tetrisPauseButton2.png", 300, 500, 128, 37);
     
     this->_buttons["tetrisStopMenuResumeButton"] = new Button("tetrisStopMenuResumeButton1.png", "tetrisStopMenuResumeButton2.png", 120, 180, 128, 37);
@@ -19,7 +19,9 @@ Menu::Menu():_clickedOnUsernameOrPassword(0){
     
     this->_buttons["tetrisStopMenuMainMenuButton"] = new Button("tetrisStopMenuMainMenuButton1.png", "tetrisStopMenuMainMenuButton2.png", 120, 300, 128, 37);
     
-    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 100, 335, 216, 89);
+    this->_buttons["tetrisLoseMenuReplayButton"] = new Button("tetrisLoseMenuReplayButton1.png", "tetrisLoseMenuReplayButton2.png", 120, 320, 150, 62);
+    
+    this->_buttons["tetrisLoseMenuSaveScoreButton"] = new Button("tetrisLoseMenuSaveScoreButton1.png", "tetrisLoseMenuSaveScoreButton2.png", 300, 320, 150, 62);
     
     this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 450, 270, 220, 51);
     
@@ -31,9 +33,11 @@ Menu::Menu():_clickedOnUsernameOrPassword(0){
     
     this->_buttons["mainMenuCreateAccountMenuCreateButton"] = new Button("mainMenuCreateAccountMenuCreateButton1.png", "mainMenuCreateAccountMenuCreateButton2.png", 260, 372, 215, 52);
     
+    this->_buttons["mainMenuLoginMenuLoginButton"] = new Button("mainMenuLoginMenuLoginButton1.png", "mainMenuLoginMenuLoginButton2.png", 260, 372, 215, 52);
+    
     // since these two are only used for detection, so no image for them. I'm too lazy to write a special method for handling blank space detection... :)呵呵懒鬼
-    this->_buttons["mainMenuCreateAccountMenuUsernameLacuna"] = new Button("", "", 325, 231, 194, 25);
-    this->_buttons["mainMenuCreateAccountMenuPasswordLacuna"] = new Button("", "", 325, 276, 194, 25);
+    this->_buttons["mainMenuUsernameLacuna"] = new Button("", "", 325, 231, 194, 25);
+    this->_buttons["mainMenuPasswordLacuna"] = new Button("", "", 325, 276, 194, 25);
     
     this->_bgm = Mix_LoadMUS("bgm.mp3");
     this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
@@ -91,6 +95,49 @@ void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
     this->_buttons["mainMenuCreateAccountMenuCreateButton"]->draw(graphicsObj);
 }
 
+void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
+    graphicsObj.drawImage("mainMenuBase.png", 0, 0, 726, 552);
+    // same background as the create account menu so no need to waste system resource
+    graphicsObj.drawImage("mainMenuCreateAccountMenuBase.png", 170, 120, 400, 321);
+    
+    this->_buttons["mainMenuLoginMenuLoginButton"]->draw(graphicsObj);
+    this->_buttons["mainMenuCreateAccountMenuBackButton"]->draw(graphicsObj);
+    
+    SDL_Color color = {0, 0, 0};
+    SDL_Color red = {255, 0, 0};
+    if(!this->_loginUserNameTypingStatusLook.empty())
+        graphicsObj.drawVarText(9, this->_loginUserNameTypingStatusLook, color, 1, 335, 228);
+    
+    if(!this->_loginPasswordTypingStatusLook.empty())
+        graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 335, 272);
+    
+    if(this->_currentUser.empty() == 0){
+        graphicsObj.drawStaticText(23, "Your current score:", color, 0.8, 210, 330);
+        graphicsObj.drawStaticText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), red, 1.5, 430, 320);
+    }
+    
+    switch(this->_isCredentialValid){
+        case 1:{
+            graphicsObj.drawStaticText(17, "Login successful", red, 0.8, 210, 310);
+            break; }
+        case 2:{
+            graphicsObj.drawStaticText(18, "User doesn't exist", red, 0.8, 210, 310);
+            break; }
+        case 3:{
+            graphicsObj.drawStaticText(19, "Enter your username please", red, 0.8, 210, 310);
+            break; }
+        case 4:{
+            graphicsObj.drawStaticText(20, "Enter your password please", red, 0.8, 210, 310);
+            break; }
+        case 5:{
+            graphicsObj.drawStaticText(21, "enter something please", red, 0.8, 210, 310);
+            break; }
+        case 6:{
+            graphicsObj.drawStaticText(22, "Credentials don't match", red, 0.8, 210, 310);
+            break; }
+    }
+}
+
 void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
     this->_buttons["tetrisPauseButton"]->draw(graphicsObj);
     
@@ -98,6 +145,8 @@ void Menu::drawTetrisDefaultMenu(Graphics& graphicsObj){
         Mix_Resume(1);
     else if(Mix_Playing(1) == 0)
         Mix_PlayChannel(1, _tetrisBgm, -1);
+    
+    this->_buttons["mainMenuLoginMenuLoginButton"]->draw(graphicsObj);
 }
 
 void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
@@ -112,6 +161,7 @@ void Menu::drawTetrisStopMenu(Graphics &graphicsObj){
 void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("tetrisLoseMenu.png", 0, 0, 796, 482);
     this->_buttons["tetrisLoseMenuReplayButton"]->draw(graphicsObj);
+    this->_buttons["tetrisLoseMenuSaveScoreButton"]->draw(graphicsObj);
     
     if(Mix_Playing(1))
         Mix_Pause(1);
@@ -121,7 +171,6 @@ void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
 }
 
 void Menu::handleButtonEvent(SDL_Event &event, Process &process){
-
     // in this function we handle scene logics
     if(process.getPid() == 1){
         this->_buttons["tetrisPauseButton"]->update(event);
@@ -139,6 +188,10 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
             process.setPid(5);
         }
+        
+        this->_buttons["tetrisLoseMenuSaveScoreButton"]->update(event);
+        if(this->_buttons["tetrisLoseMenuSaveScoreButton"]->isButtonClicked())
+            this->_loginObj.writeUserDetailToFile();
     }
     
     if(process.getPid() == 3){
@@ -164,8 +217,17 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         }
         
         this->_buttons["mainMenuLoginButton"]->update(event);
-        if(this->_buttons["mainMenuLoginButton"]->isButtonClicked())
+        if(this->_buttons["mainMenuLoginButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            
+            // clear the string before another round of input:)
+            this->_loginUsernameString.clear();
+            this->_loginPasswordString.clear();
+            this->_loginUserNameTypingStatusLook.clear();
+            this->_loginPasswordTypingStatusLook.clear();
+            
+            process.setPid(7);
+        }
     }
     
     if(process.getPid() == 4){
@@ -190,6 +252,16 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             process.setPid(3);
         }
     }
+// for both create account menu and login menu to check user mouse selection
+    if(process.getPid() == 6 || process.getPid() == 7){
+        this->_buttons["mainMenuUsernameLacuna"]->update(event);
+        if(this->_buttons["mainMenuUsernameLacuna"]->isButtonClicked())
+            this->_clickedOnUsernameOrPassword = 1;
+        
+        this->_buttons["mainMenuPasswordLacuna"]->update(event);
+        if(this->_buttons["mainMenuPasswordLacuna"]->isButtonClicked())
+            this->_clickedOnUsernameOrPassword = 2;
+    }
     
     if(process.getPid() == 6){
         this->_buttons["mainMenuCreateAccountMenuBackButton"]->update(event);
@@ -207,22 +279,31 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             this->_errorCode = this->_loginObj.addUser(this->_loginUsernameString, this->_loginPasswordString);
             this->_loginObj.writeUserDetailToFile();
         }
+    }
+    
+    if(process.getPid() == 7){
+        this->_buttons["mainMenuLoginMenuLoginButton"]->update(event);
+        if(this->_buttons["mainMenuLoginMenuLoginButton"]->isButtonClicked()){
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            this->_isCredentialValid = this->_loginObj.checkCredential(this->_loginUsernameString, this->_loginPasswordString);
+            if(_isCredentialValid == 1)
+                this->_currentUser = this->_loginUsernameString;
+        }
         
-        this->_buttons["mainMenuCreateAccountMenuUsernameLacuna"]->update(event);
-        if(this->_buttons["mainMenuCreateAccountMenuUsernameLacuna"]->isButtonClicked())
-            this->_clickedOnUsernameOrPassword = 1;
-        
-        this->_buttons["mainMenuCreateAccountMenuPasswordLacuna"]->update(event);
-        if(this->_buttons["mainMenuCreateAccountMenuPasswordLacuna"]->isButtonClicked())
-            this->_clickedOnUsernameOrPassword = 2;
+        this->_buttons["mainMenuCreateAccountMenuBackButton"]->update(event);
+        if(this->_buttons["mainMenuCreateAccountMenuBackButton"]->isButtonClicked()){
+            this->_isCredentialValid = -1;
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            process.setPid(3);
+        }
     }
 }
 
 void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
-    if(process.getPid() == 6){
+    if(process.getPid() == 6 || process.getPid() == 7){
         if(this->_clickedOnUsernameOrPassword == 1){
-            // 把字符串限制在10内，不超出框框
-            if(strlen(this->_loginUserNameTypingStatusLook.c_str()) < 10){
+            // 把字符串限制在12内，不超出框框
+            if(strlen(this->_loginUserNameTypingStatusLook.c_str()) < 12){
                 this->_loginUserNameTypingStatusLook += (SDL_GetKeyName(event.key.keysym.sym));
                 this->_loginUsernameString += (SDL_GetKeyName(event.key.keysym.sym));
             }
@@ -249,4 +330,9 @@ void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
 
 void Menu::loadUserData(){
     this->_loginObj.readUserDetailFromFile();
+}
+
+void Menu::getScoreFromGame(int value){
+    this->_loginObj.setScore(this->_currentUser, value);
+    std::cout<<"\nvalue: "<<value;
 }

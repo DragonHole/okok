@@ -49,7 +49,9 @@ enum Color{
 enum Scene{
     NONE,
     TETRIS_LOSE,
-    TETRIS_WIN
+    TETRIS_WIN,
+    
+    STRINGMEM_LOSE
 };
 
 // set offsets for sprites, very handy little utility
@@ -133,13 +135,13 @@ enum BlockType
 };
 
 // -------------------------------STRING-MEMORY--------------------------------
-#define STRING_MEM_WINDOW_HEIGHT 
-#define STRING_MEM_WINDOW_WIDTH
+#define STRING_MEM_WINDOW_HEIGHT 584
+#define STRING_MEM_WINDOW_WIDTH 1050
 
 #define STRING_MEM_STOP_MENU_HEIGHT
 #define STRING_MEM_STOP_MENU_WIDTH
 
-#define STRING_MEM_INITIAL_LEVEL_TIME
+#define STRING_MEM_SHOW_TIME 3000 // ms, although not accurate at all, you got the SDL_Delay() thing and other processes need some time to handle 
 #define STRING_MEM_LEVEL_TIME_DIFF 
 
 #define STRING_MEM_SCORE_EXTRA_CONSTANT 10   // give extra reward as level highers

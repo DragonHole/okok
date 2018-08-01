@@ -33,6 +33,8 @@ public:
     // Clear the renderer every time the sprites refresh
     void clearRenderer();
     
+    void setRenderDrawColor(int r, int g, int b, int alpha);
+    
     // Show the renderer
     void flipRenderer();
     
@@ -46,6 +48,11 @@ public:
     // draw UI element
     void drawStaticText(int identifier, std::string msg, SDL_Color color, double sizeCoef, int x, int y);
     void drawVarText(int identifier, std::string msg, SDL_Color color, double sizeCoef, int x, int y);
+    
+    // overloaded functions with custom font 
+    void drawStaticText(TTF_Font *font, int identifier, std::string msg, SDL_Color color, double sizeCoef, int x, int y);
+    void drawVarText(TTF_Font *font, int identifier, std::string msg, SDL_Color color, double sizeCoef, int x, int y);
+    
     void drawImage(std::string identifier, int x, int y, int w, int h);
 
 private:
@@ -80,4 +87,6 @@ private:
 // 9 - Username real-time display in create account page
 // 10 - Same as above but for password 
 // (11 -> 16) - create account page error message
-// 17 -> 22 - login account error message 
+// 17 -> 22 - login account error message
+// 23 - 25 used
+// 26 - stringMemoryGameCurrentString 

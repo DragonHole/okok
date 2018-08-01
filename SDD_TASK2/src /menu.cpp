@@ -29,6 +29,7 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     //--------------------------------------MAIN-MENU-ELEMENTS----------------------------------------
     
     this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 430, 270, 220, 51);
+    this->_buttons["mainMenuStringMemoryButton"] = new Button("mainMenuStringMemoryButton1.png", "mainMenuStringMemoryButton2.png", 430, 320, 220, 51);
     
     this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 558, 10, 170, 61);
     
@@ -56,8 +57,17 @@ Menu::~Menu(){}
 void Menu::drawMainMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("mainMenuBase.png", 0, 0, 736, 552);
     
+    SDL_Color color = {0, 0, 0};
+    if(!this->_currentUser.empty()){
+        graphicsObj.drawStaticText(23, "Current score: ", color, 1, 575, 150);
+        graphicsObj.drawVarText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), color, 1, 630, 180);
+        graphicsObj.drawStaticText(25, "Hi " + this->_currentUser + ",", color, 1, 570, 10);
+    }
+    else
+        this->_buttons["mainMenuCreateAccountButton"]->draw(graphicsObj);
+    
     this->_buttons["mainMenuTetrisButton"]->draw(graphicsObj);
-    this->_buttons["mainMenuCreateAccountButton"]->draw(graphicsObj);
+    this->_buttons["mainMenuStringMemoryButton"]->draw(graphicsObj);
     
     if(this->_currentUser.empty())
         this->_buttons["mainMenuLoginButton"]->draw(graphicsObj);
@@ -122,8 +132,8 @@ void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
         graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 335, 272);
     
     if(this->_currentUser.empty() == 0){
-        graphicsObj.drawStaticText(23, "Your current score:", color, 0.8, 210, 330);
-        graphicsObj.drawStaticText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), red, 1.5, 430, 320);
+        graphicsObj.drawStaticText(23, "Your score:", color, 0.8, 210, 330);
+        graphicsObj.drawStaticText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), red, 1.3, 350, 325);
     }
     
     switch(this->_isCredentialValid){
@@ -220,6 +230,14 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             Mix_PauseMusic();
             Mix_PlayChannel(1, this->_tetrisBgm, -1);
             process.setPid(5);
+        }
+        
+        this->_buttons["mainMenuStringMemoryButton"]->update(event);
+        if(this->_buttons["mainMenuStringMemoryButton"]->isButtonClicked()){
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            Mix_PauseMusic();
+            // todo - then play stringMemory theme bg music 
+            process.setPid(8);
         }
         
         this->_buttons["mainMenuCreateAccountButton"]->update(event);
@@ -326,8 +344,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     }
 }
 
-void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
-    if(process.getPid() == 6 || process.getPid() == 7){
+void Menu::handleKeyboardEvent(SDL_Event &event){
         if(this->_clickedOnUsernameOrPassword == 1){
             // 把字符串限制在12内，不超出框框
             if(strlen(this->_loginUserNameTypingStatusLook.c_str()) < 12){
@@ -352,7 +369,6 @@ void Menu::handleKeyboardEvent(SDL_Event &event, Process &process){
                  this->_loginPasswordString.erase();
              }
         }
-    }
 }
 
 void Menu::loadUserData(){
@@ -360,6 +376,5 @@ void Menu::loadUserData(){
 }
 
 void Menu::getScoreFromGame(int value){
-    this->_loginObj.setScore(this->_currentUser, value);
-    std::cout<<"\nvalue: "<<value;
+        this->_loginObj.setScore(this->_currentUser, value);
 }

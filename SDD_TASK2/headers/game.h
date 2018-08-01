@@ -14,6 +14,7 @@
 #include "graphics.h"
 #include "process.h"
 #include "menu.h"
+#include "stringMemory.h"
 
 // further encapsulation
 // right below main
@@ -34,12 +35,13 @@ public:
     
 private:
     SDL_Event _event;
+    Process _process;
     Graphics _graphicsObj;
     Keyboard _keyboardObj;
     Menu _menuObj;
 
     Tetris _tetrisObj;
-    Process _process;
+    stringMemory _stringMemoryObj;
     
     // just for Menu::getScoreFromGame(), yea.. i'm acting shamelessly, bad:(
     bool _loaded;

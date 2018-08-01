@@ -37,7 +37,7 @@ public:
     void drawTetrisLoseMenu(Graphics &graphicsObj);
 
     void handleButtonEvent(SDL_Event &event, Process &process);
-    void handleKeyboardEvent(SDL_Event &event, Process &process);
+    void handleKeyboardEvent(SDL_Event &event);
     
     // just for Login::readUserDetailFromFile(), haha 作为传递介质(login->menu->game)
     void loadUserData();
@@ -55,7 +55,7 @@ private:
     Mix_Chunk *_tetrisGameOverSound;
     
     // for the look
-    std::string _loginUserNameTypingStatusLook;
+    std::string _loginUserNameTypingStatusLook; // todo - 其实这个没用处，可以去掉
     std::string _loginPasswordTypingStatusLook;
     
     // for acutal processing

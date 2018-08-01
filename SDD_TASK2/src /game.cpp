@@ -10,7 +10,7 @@
 
 #define MAX_FRAME_RATE 20
 
-Game::Game(){
+Game::Game():_loaded(false){
 // init
     loop();
 }
@@ -31,6 +31,7 @@ void Game::loop(){
     this->_process.setPid(3);
     
     this->_tetrisObj = Tetris(this->_graphicsObj);
+    this->_stringMemoryObj = stringMemory();
 
     double LastUpdateTime = SDL_GetTicks();
     
@@ -43,14 +44,22 @@ void Game::loop(){
     // don't bother with _heldKeys yet
             if(_event.type == SDL_KEYDOWN){
                 this->_keyboardObj.keyDown(_event);
-                this->_menuObj.handleKeyboardEvent(this->_event, this->_process);
+                if(this->_process.getPid() == 6 || this->_process.getPid() == 7)
+                    this->_menuObj.handleKeyboardEvent(this->_event);
+                
+                if(this->_process.getPid() == 8)
+                    this->_stringMemoryObj.handleKeyboardEvent(this->_event);
             }
             
             if(_event.type == SDL_KEYUP)
                 this->_keyboardObj.keyUp(_event);
             
-            if(_event.type == SDL_MOUSEMOTION || _event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP)
-                this->_menuObj.handleButtonEvent(_event, this->_process);
+            if(_event.type == SDL_MOUSEMOTION || _event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP){
+                this->_menuObj.handleButtonEvent(this->_event, this->_process);
+    
+                if(this->_process.getPid() == 8)
+                    this->_stringMemoryObj.handleButtonEvent(this->_event);
+            }
             
     // close the window when the red close button is pressed
             if(_event.type == SDL_QUIT)
@@ -88,12 +97,18 @@ void Game::update(double elapsedTime){
                     _loaded = true;
                 }
             }
-
             break;
+        }
+        
+        case 8:{
+            if(this->_stringMemoryObj.update(this->_graphicsObj, elapsedTime) == Scene::STRINGMEM_LOSE){
+                this->_process.setPid(9);
+            }
         }
     }
 }
 
+// really just keyboard input is processed here
 void Game::handleInput(){
     // commands here should be accessible globally
     if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
@@ -171,6 +186,13 @@ void Game::draw(double elapsedTime){
             
         case 7:{
             this->_menuObj.drawMainMenuLoginMenu(this->_graphicsObj);
+            break;
+        }
+            
+        case 8:{
+            SDL_SetWindowSize(_graphicsObj.getWindow(), STRING_MEM_WINDOW_WIDTH, STRING_MEM_WINDOW_HEIGHT);
+            SDL_SetWindowPosition(_graphicsObj.getWindow(), 200, 180);
+            this->_stringMemoryObj.draw(this->_graphicsObj);
             break;
         }
             

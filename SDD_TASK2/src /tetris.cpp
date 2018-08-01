@@ -41,12 +41,12 @@ Tetris::~Tetris(){
 
 Scene Tetris::update(Graphics &graphicsObj, float timeElapsed){
     
-    this->_currentBlock->update(timeElapsed, this->_groundedSquares);
-    
     // handle entity collision before checking grounding
     for(int i = 0; i < this->_groundedRects.size(); i++)
         this->_currentBlock->handleSideCollison(_groundedRects.at(i)._rect);
     
+    this->_currentBlock->update(timeElapsed, this->_groundedSquares);
+
     this->checkStatus();
     
     this->_groundedSquares.clear();
@@ -83,15 +83,12 @@ Scene Tetris::update(Graphics &graphicsObj, float timeElapsed){
         if(this->_groundedRects[i]._rect.getY() <= 100) //
             return TETRIS_LOSE;   // for lose screen
     
-    if(this->_level > 8)
-        return TETRIS_WIN;
-    
     return NONE;
 }
 
 void Tetris::draw(Graphics &graphicsObj){
     
-    graphicsObj.drawImage("bg.png", 0, 0, 288, 551);
+    graphicsObj.drawImage("tetrisBg.png", 0, 0, 288, 551);
     
     this->_currentBlock->draw(graphicsObj);
     // todo - change ther followings to graphics.drawImage(...)

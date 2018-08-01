@@ -64,7 +64,12 @@ int Login::retrieveScore(std::string username){
 }
 
 void Login::setScore(std::string username, int value){
-    this->_users[username]._score = value;
+    if(username.empty()){
+        std::cout<<"\nvalue: "<<value;
+        this->_users[username]._score = value;
+    }
+    else
+        std::cout<<"You're not logged in, no progress will be saved"<<std::endl;
 }
 
 void Login::removeUser(std::string username){
@@ -101,6 +106,6 @@ void Login::readUserDetailFromFile(){
     while(istream>>username && istream>>password && istream>>score){
         this->_users[username]._passwordHash = password;
         this->_users[username]._score = score;
-        std::cout<<"Loaded user: "<<username<<" with Password: "<<password<<" and score "<<score<<std::endl;
+        std::cout<<"Loaded user: "<<username<<" with password hash: "<<password<<" and score "<<score<<std::endl;
     }
 }

@@ -111,8 +111,6 @@ void Game::update(double elapsedTime){
 // really just keyboard input is processed here
 void Game::handleInput(){
     // commands here should be accessible globally
-    if(_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
-        this->_process.setPid(2);
     
     // commands only accessible in specific scene
     switch(this->_process.getPid()){

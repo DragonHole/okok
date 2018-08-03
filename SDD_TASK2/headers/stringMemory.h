@@ -33,13 +33,17 @@ public:
     
     void handleKeyboardEvent(SDL_Event &event);
     
-    void genNewString();
+    void genString();
     
     void draw(Graphics &graphicsObj);
     
 private:
-    std::string _currentString;     // the required string 
+    std::string _currentString;     // the required string
+    std::string _incrementCurrentString;
     std::string _userString;        // what the user inputs
+    
+    char _alpha[36]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+    
     int _correct; // 0-none, 1-correct, 2-incorrect
     
     int _level;

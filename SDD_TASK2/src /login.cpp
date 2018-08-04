@@ -64,12 +64,12 @@ int Login::retrieveScore(std::string username){
 }
 
 void Login::setScore(std::string username, int value){
-    if(username.empty()){
+    if(this->_users.count(username) != 0){
         std::cout<<"\nvalue: "<<value;
         this->_users[username]._score = value;
     }
     else
-        std::cout<<"You're not logged in, no progress will be saved"<<std::endl;
+        std::cout<<"\nYou're not logged in, no progress will be saved"<<std::endl;
 }
 
 void Login::removeUser(std::string username){
@@ -78,7 +78,7 @@ void Login::removeUser(std::string username){
 
 void Login::writeUserDetailToFile(){
     std::ofstream ostream("users.txt");
-    std::cout<<"\nwritten to file"<<std::endl;
+    std::cout<<"\ndata written to file "<<std::endl;
     // if can't open file then exit
     if(!ostream){
         std::cerr<<"\n error opening user.txt"<<std::endl;

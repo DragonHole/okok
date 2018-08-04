@@ -19,7 +19,7 @@ Graphics::Graphics(){
     TTF_Init();
     
     //Create an application window with the following settings:
-    _window = SDL_CreateWindow("Tetris",                     // window title
+    _window = SDL_CreateWindow("Mind-challenging game",                     // window title
                               SDL_WINDOWPOS_UNDEFINED,           // initial x position
                               SDL_WINDOWPOS_UNDEFINED,           // initial y position
                               TETRIS_WINDOW_WIDTH,                               // width, in pixels

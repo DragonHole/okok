@@ -10,7 +10,7 @@
 
 #define MAX_FRAME_RATE 20
 
-Game::Game():_loaded(false){
+Game::Game():_loaded(false), _loaded2(false){
 // init
     loop();
 }
@@ -101,9 +101,15 @@ void Game::update(double elapsedTime){
         }
         
         case 8:{
-            if(this->_stringMemoryObj.update(this->_graphicsObj, elapsedTime) == Scene::STRINGMEM_LOSE){
-                this->_process.setPid(9);
+            this->_which = this->_stringMemoryObj.update(this->_graphicsObj, elapsedTime);
+            if(_which == Scene::STRINGMEM_EXIT)
+                this->_process.setPid(3);
+            
+            if(_which == Scene::STRINGMEM_SAVE){
+                this->_menuObj.getScoreFromGame(this->_stringMemoryObj.getScore());
+                this->_menuObj.writeToFile();
             }
+            break;
         }
     }
 }
@@ -191,6 +197,11 @@ void Game::draw(double elapsedTime){
             SDL_SetWindowSize(_graphicsObj.getWindow(), STRING_MEM_WINDOW_WIDTH, STRING_MEM_WINDOW_HEIGHT);
             SDL_SetWindowPosition(_graphicsObj.getWindow(), 200, 180);
             this->_stringMemoryObj.draw(this->_graphicsObj);
+            this->_menuObj.drawStringMemDefaultMenu(this->_graphicsObj);
+            break;
+        }
+            
+        case 9:{
             break;
         }
             

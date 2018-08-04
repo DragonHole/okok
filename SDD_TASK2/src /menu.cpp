@@ -26,6 +26,9 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     
     this->_buttons["tetrisLoseMenuMainMenuButton"] = new Button("tetrisLoseMenuMainMenuButton1.png", "tetrisLoseMenuMainMenuButton2.png", 300, 410, 150, 62);
     
+    //-------------------------------------STRING_MEM_ELEMENTS----------------------------------------
+    this->_buttons["stringMemSaveButton"] = new Button("stringMemSaveButton1.png", "stringMemSaveButton2.png", 250, 53, 147, 44);
+    
     //--------------------------------------MAIN-MENU-ELEMENTS----------------------------------------
     
     this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 430, 270, 220, 51);
@@ -189,6 +192,10 @@ void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
         Mix_PlayChannel(3, this->_tetrisGameOverSound, -1);
 }
 
+void Menu::drawStringMemDefaultMenu(Graphics &graphicsObj){
+//    this->_buttons["stringMemSaveButton"]->draw(graphicsObj);
+}
+
 void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     // in this function we handle scene logics
     if(process.getPid() == 1){
@@ -342,6 +349,13 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
             process.setPid(3);
         }
     }
+    
+    if(process.getPid() == 8){
+//        this->_buttons["stringMemSaveButton"]->update(event);
+//        if(this->_buttons["stringMemSaveButton"]->isButtonClicked()){
+//            this->_loginObj.writeUserDetailToFile();
+//        }
+    }
 }
 
 void Menu::handleKeyboardEvent(SDL_Event &event){
@@ -377,4 +391,8 @@ void Menu::loadUserData(){
 
 void Menu::getScoreFromGame(int value){
         this->_loginObj.setScore(this->_currentUser, value);
+}
+
+void Menu::writeToFile(){
+    this->_loginObj.writeUserDetailToFile();
 }

@@ -89,4 +89,6 @@ private:
 // (11 -> 16) - create account page error message
 // 17 -> 22 - login account error message
 // 23 - 25 used
-// 26 - stringMemoryGameCurrentString 
+// 26 - userString
+// 27 - current extra string
+// 28 -> 31 - string mem labels

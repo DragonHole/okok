@@ -43,8 +43,10 @@ private:
     Tetris _tetrisObj;
     stringMemory _stringMemoryObj;
     
-    // just for Menu::getScoreFromGame(), yea.. i'm acting shamelessly, bad:(
+    // just for Menu::getScoreFromGame(), yea.. what a shame, bad:(
     bool _loaded;
+    bool _loaded2;
+    Scene _which;
     
     double _timeElapsed;
 };

@@ -87,7 +87,7 @@ Scene Tetris::update(Graphics &graphicsObj, float timeElapsed){
 }
 
 void Tetris::draw(Graphics &graphicsObj){
-    
+    graphicsObj.setRenderDrawColor(0, 77 , 99, 255);
     graphicsObj.drawImage("tetrisBg.png", 0, 0, 288, 551);
     
     this->_currentBlock->draw(graphicsObj);

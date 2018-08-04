@@ -31,6 +31,7 @@ public:
     
     // basically only the stop button in the gaming-screen
     void drawTetrisDefaultMenu(Graphics &graphicsObj);
+    void drawStringMemDefaultMenu(Graphics &graphicsObj);
     
     // pulse menu with restart and quit buttons 
     void drawTetrisStopMenu(Graphics &graphicsObj);
@@ -44,6 +45,8 @@ public:
     
     // this one if much more interesting，从(login->menu->game->tetris) used as an interface from Login class to Tetris class
     void getScoreFromGame(int value); // value is added to current user's score
+    
+    void writeToFile();
     
 private:
     // a name for each button

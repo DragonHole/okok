@@ -51,7 +51,8 @@ enum Scene{
     TETRIS_LOSE,
     TETRIS_WIN,
     
-    STRINGMEM_LOSE
+    STRINGMEM_EXIT, 
+    STRINGMEM_SAVE
 };
 
 // set offsets for sprites, very handy little utility
@@ -145,7 +146,7 @@ enum BlockType
 #define STRING_MEM_LEVEL_TIME_DIFF 
 
 #define STRING_MEM_SCORE_EXTRA_CONSTANT 10   // give extra reward as level highers
-#define STRING_MEM_SCORE_PER_LEVEL 50        // because only one question each level. Final score added = level*ScorePerLevel+level*constant
+#define STRING_MEM_SCORE_PER_LEVEL 50        // because only one question each level. Final score added = level(ScorePerLevel+ constant)
 
 #define STRING_MEM_INCREMENT_ALPHA_PER_LEVEL 1
 

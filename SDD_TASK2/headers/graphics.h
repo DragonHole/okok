@@ -92,4 +92,6 @@ private:
 // 26 - userString
 // 27 - current extra string
 // 28 -> 31 - string mem labels
-// 32 -> 33 - match_n_see 
+// 32 -> 33 - match_n_see
+
+// 89 - main menu show user score "your score:"

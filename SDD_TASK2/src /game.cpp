@@ -85,7 +85,7 @@ void Game::loop(){
         
         this->draw(ELAPSED_TIME_MS);
         
-        SDL_Delay(30);  // don't kill the cpu :)
+        SDL_Delay(40);  // don't kill the cpu :)
     }
 }
 

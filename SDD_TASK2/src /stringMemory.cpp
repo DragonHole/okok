@@ -44,6 +44,8 @@ Scene stringMemory::update(Graphics &graphicsObj, double timeElapsed){
     if(this->_exit){
         _exit = false;
         reset();
+        Mix_Pause(4);       // so nice to have it usable system-wide, 省去太多烦恼:)
+        Mix_Resume(2);
         return Scene::STRINGMEM_EXIT;
     }
     

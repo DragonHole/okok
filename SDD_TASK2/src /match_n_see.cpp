@@ -27,6 +27,7 @@ void match_n_see::initNew(){
     this->_exitButton = new Button("stringMemExitButton1.png", "stringMemExitButton2.png", 617, 552, 120, 44);
     this->_saveButton = new Button("stringMemSaveButton1.png", "stringMemSaveButton2.png", 610, 480, 147, 44);
     
+    this->_bgMusic = Mix_LoadWAV("match_n_seeBgm.wav");
     this->_buttonClickSound = Mix_LoadWAV("match_n_seeButtonClickSound.wav");
     this->_flipSound = Mix_LoadWAV("match_n_seeFlipSound.wav");
     this->_bingoSound = Mix_LoadWAV("match_n_seeBingoSound.wav");
@@ -87,6 +88,11 @@ void match_n_see::draw(Graphics &graphicsObj){
 }
 
 Scene match_n_see::update(float elapsedTime){
+    
+    if(Mix_Paused(5) == 1)
+        Mix_Resume(5);
+    else if(Mix_Playing(5) == 0)
+        Mix_PlayChannel(5, this->_bgMusic, -1);
 
     bool done  = true;
     for(int i = 0; i < 6; i++)
@@ -95,6 +101,8 @@ Scene match_n_see::update(float elapsedTime){
                 done  = false;
     
     if(this->_quit){
+        Mix_Pause(5);
+        Mix_Resume(2);
         _quit = false;
         return Scene::MATCH_N_SEE_EXIT;
     }
@@ -112,6 +120,7 @@ void match_n_see::handleButtonEvent(SDL_Event &event){
     if(this->_exitButton->isButtonClicked()){
         Mix_PlayChannel(-1, this->_buttonClickSound, 0);
         reset();
+        Mix_Resume(2);
         this->_quit = true;
     }
     

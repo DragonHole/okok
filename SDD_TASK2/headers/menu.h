@@ -53,9 +53,11 @@ private:
     std::map<std::string, Button *> _buttons;
     
     Mix_Music *_bgm;
+    Mix_Chunk *_mainBgm;
     Mix_Chunk *_tetrisBgm;
     Mix_Chunk *_buttonClickSound;
     Mix_Chunk *_tetrisGameOverSound;
+    Mix_Chunk *_stringMemoryBgm;
     
     // for the look
     std::string _loginUserNameTypingStatusLook; // todo - 其实这个没用处，可以去掉

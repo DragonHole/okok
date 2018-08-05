@@ -31,28 +31,29 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     
     //--------------------------------------MAIN-MENU-ELEMENTS----------------------------------------
     
-    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 430, 270, 220, 51);
+    this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 350, 280, 105, 115);
     this->_buttons["mainMenuStringMemoryButton"] = new Button("mainMenuStringMemoryButton1.png", "mainMenuStringMemoryButton2.png", 350, 60, 211, 212);
+    this->_buttons["mainMenuBlockMemoryButton"] = new Button("mainMenuBlockMemoryButton1.png", "mainMenuBlockMemoryButton2.png", 242, 280, 105, 115);
     
-    this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 558, 10, 170, 61);
-    
-    this->_buttons["mainMenuLoginButton"] = new Button("mainMenuLoginButton1.png", "mainMenuLoginButton2.png", 558, 70, 170, 61);
-    this->_buttons["mainMenuLogoutButton"] = new Button("mainMenuLogoutButton1.png", "mainMenuLogoutButton2.png", 558, 70, 170, 61);
+    this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 133, 402, 104, 115);
+    this->_buttons["mainMenuLoginButton"] = new Button("mainMenuLoginButton1.png", "mainMenuLoginButton2.png", 567, 60, 104, 115);
+    this->_buttons["mainMenuLogoutButton"] = new Button("mainMenuLogoutButton1.png", "mainMenuLogoutButton2.png", 567, 60, 104, 115);
     
     this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 515, 165, 40, 42);
     
-    this->_buttons["mainMenuCreateAccountMenuCreateButton"] = new Button("mainMenuCreateAccountMenuCreateButton1.png", "mainMenuCreateAccountMenuCreateButton2.png", 260, 372, 215, 52);
+    this->_buttons["mainMenuCreateAccountMenuCreateButton"] = new Button("mainMenuCreateAccountMenuCreateButton1.png", "mainMenuCreateAccountMenuCreateButton2.png", 217, 432, 283, 45);
     
-    this->_buttons["mainMenuLoginMenuLoginButton"] = new Button("mainMenuLoginMenuLoginButton1.png", "mainMenuLoginMenuLoginButton2.png", 260, 372, 215, 52);
+    this->_buttons["mainMenuLoginMenuLoginButton"] = new Button("mainMenuLoginMenuLoginButton1.png", "mainMenuLoginMenuLoginButton2.png", 217, 432, 283, 45);
     
     // since these two are only used for detection, so no image for them. I'm too lazy to write a special method for handling blank space detection... :)呵呵懒鬼
     this->_buttons["mainMenuUsernameLacuna"] = new Button("", "", 325, 231, 194, 25);
     this->_buttons["mainMenuPasswordLacuna"] = new Button("", "", 325, 276, 194, 25);
     
-    this->_bgm = Mix_LoadMUS("bgm.mp3");
+    this->_mainBgm = Mix_LoadWAV("bgm.wav");
     this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
     this->_tetrisBgm = Mix_LoadWAV("tetrisBgm.wav");
     this->_tetrisGameOverSound = Mix_LoadWAV("tetrisGameOverSound.wav");
+    this->_stringMemoryBgm = Mix_LoadWAV("stringMemoryBgm.wav");
 }
 
 Menu::~Menu(){}
@@ -60,30 +61,31 @@ Menu::~Menu(){}
 void Menu::drawMainMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("mainMenuBase.png", 0, 0, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
     
-    SDL_Color color = {0, 0, 0};
+    SDL_Color color = {255, 255, 255};
     if(!this->_currentUser.empty()){
-        graphicsObj.drawStaticText(23, "Current score: ", color, 1, 575, 150);
-        graphicsObj.drawVarText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), color, 1, 630, 180);
-        graphicsObj.drawStaticText(25, "Hi " + this->_currentUser + ",", color, 1, 570, 10);
+        graphicsObj.drawStaticText(89, "Current score: ", color, 1, 65, 140);
+        graphicsObj.drawVarText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), color, 1, 65, 180);
+        graphicsObj.drawStaticText(25, "Hi " + this->_currentUser + ",", color, 2, 65, 50);
     }
     else
         this->_buttons["mainMenuCreateAccountButton"]->draw(graphicsObj);
     
     this->_buttons["mainMenuTetrisButton"]->draw(graphicsObj);
     this->_buttons["mainMenuStringMemoryButton"]->draw(graphicsObj);
+    this->_buttons["mainMenuBlockMemoryButton"]->draw(graphicsObj);
     
     if(this->_currentUser.empty())
         this->_buttons["mainMenuLoginButton"]->draw(graphicsObj);
     else
         this->_buttons["mainMenuLogoutButton"]->draw(graphicsObj);
     
-    if(Mix_PlayingMusic() == 0)
-        Mix_PlayMusic(this->_bgm, -1);
+    if(Mix_Playing(2) == 0)
+        Mix_PlayChannel(2, this->_mainBgm, -1);
 }
 
 void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("mainMenuBase.png", 0, 0, 726, 552);
-    graphicsObj.drawImage("MainMenuCreateAccountMenuBase.png", 170, 120, 400, 321);
+    graphicsObj.drawImage("MainMenuCreateAccountMenuBase.png", 200, 70, 320, 436);
     
     SDL_Color color = {0, 0, 0};
     if(!this->_loginUserNameTypingStatusLook.empty())
@@ -121,7 +123,7 @@ void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
 void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
     graphicsObj.drawImage("mainMenuBase.png", 0, 0, 726, 552);
     // same background as the create account menu so no need to waste system resource
-    graphicsObj.drawImage("mainMenuCreateAccountMenuBase.png", 170, 120, 400, 321);
+    graphicsObj.drawImage("mainMenuCreateAccountMenuBase.png", 200, 70, 320, 436);
     
     this->_buttons["mainMenuLoginMenuLoginButton"]->draw(graphicsObj);
     this->_buttons["mainMenuCreateAccountMenuBackButton"]->draw(graphicsObj);
@@ -193,7 +195,10 @@ void Menu::drawTetrisLoseMenu(Graphics &graphicsObj){
 }
 
 void Menu::drawStringMemDefaultMenu(Graphics &graphicsObj){
-//    this->_buttons["stringMemSaveButton"]->draw(graphicsObj);
+    if(Mix_Paused(4) == 1)
+        Mix_Resume(4);
+    else if(Mix_Playing(4) == 0)
+        Mix_PlayChannel(4, _stringMemoryBgm, -1);
 }
 
 void Menu::handleButtonEvent(SDL_Event &event, Process &process){
@@ -223,9 +228,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         
         this->_buttons["tetrisLoseMenuMainMenuButton"]->update(event);
         if(this->_buttons["tetrisLoseMenuMainMenuButton"]->isButtonClicked()){
-            Mix_Pause(3);
-            Mix_RewindMusic();
-            Mix_PlayMusic(this->_bgm, -1);
+            Mix_PlayChannel(2, this->_mainBgm, -1);
             process.setPid(3);
         }
     }
@@ -234,7 +237,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["mainMenuTetrisButton"]->update(event);
         if(this->_buttons["mainMenuTetrisButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
-            Mix_PauseMusic();
+            Mix_Pause(2);
             Mix_PlayChannel(1, this->_tetrisBgm, -1);
             process.setPid(5);
         }
@@ -242,9 +245,17 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["mainMenuStringMemoryButton"]->update(event);
         if(this->_buttons["mainMenuStringMemoryButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
-            Mix_PauseMusic();
-            // todo - then play stringMemory theme bg music 
+            Mix_Pause(2);
+            Mix_PlayChannel(4, this->_stringMemoryBgm, -1);
             process.setPid(8);
+        }
+        
+        this->_buttons["mainMenuBlockMemoryButton"]->update(event);
+        if(this->_buttons["mainMenuBlockMemoryButton"]->isButtonClicked()){
+            Mix_PlayChannel(-1, this->_buttonClickSound, 0);
+            Mix_Pause(2);
+            
+            process.setPid(10);
         }
         
         this->_buttons["mainMenuCreateAccountButton"]->update(event);
@@ -299,8 +310,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
         this->_buttons["tetrisStopMenuMainMenuButton"]->update(event);
         if(this->_buttons["tetrisStopMenuMainMenuButton"]->isButtonClicked()){
             Mix_PlayChannel(-1, this->_buttonClickSound, 0);
-            Mix_RewindMusic();
-            Mix_PlayMusic(this->_bgm, -1);
+            Mix_PlayChannel(2, this->_mainBgm, -1);
             process.setPid(3);
         }
     }
@@ -351,10 +361,7 @@ void Menu::handleButtonEvent(SDL_Event &event, Process &process){
     }
     
     if(process.getPid() == 8){
-//        this->_buttons["stringMemSaveButton"]->update(event);
-//        if(this->_buttons["stringMemSaveButton"]->isButtonClicked()){
-//            this->_loginObj.writeUserDetailToFile();
-//        }
+
     }
 }
 

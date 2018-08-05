@@ -111,7 +111,6 @@ void match_n_see::handleButtonEvent(SDL_Event &event){
     this->_exitButton->update(event);
     if(this->_exitButton->isButtonClicked()){
         Mix_PlayChannel(-1, this->_buttonClickSound, 0);
-        reset();
         this->_quit = true;
     }
     
@@ -139,7 +138,7 @@ void match_n_see::handleButtonEvent(SDL_Event &event){
         }
     
     if(_first.first != -1 && _second.first != -1){
-        if(this->_type[_first.first][_first.second] == this->_type[_second.first][_second.second] && _first.first != _second.first){
+        if(this->_type[_first.first][_first.second] == this->_type[_second.first][_second.second]){
             Mix_PlayChannel(-1, this->_bingoSound, 0);
             this->_score += 50;
             this->_show[_first.first][_first.second] = true;

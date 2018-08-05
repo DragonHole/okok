@@ -32,7 +32,7 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     //--------------------------------------MAIN-MENU-ELEMENTS----------------------------------------
     
     this->_buttons["mainMenuTetrisButton"] = new Button("mainMenuTetrisButton1.png", "mainMenuTetrisButton2.png", 430, 270, 220, 51);
-    this->_buttons["mainMenuStringMemoryButton"] = new Button("mainMenuStringMemoryButton1.png", "mainMenuStringMemoryButton2.png", 430, 320, 220, 51);
+    this->_buttons["mainMenuStringMemoryButton"] = new Button("mainMenuStringMemoryButton1.png", "mainMenuStringMemoryButton2.png", 350, 60, 211, 212);
     
     this->_buttons["mainMenuCreateAccountButton"] = new Button("mainMenuCreateAccountButton1.png", "mainMenuCreateAccountButton2.png", 558, 10, 170, 61);
     
@@ -58,7 +58,7 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
 Menu::~Menu(){}
 
 void Menu::drawMainMenu(Graphics &graphicsObj){
-    graphicsObj.drawImage("mainMenuBase.png", 0, 0, 736, 552);
+    graphicsObj.drawImage("mainMenuBase.png", 0, 0, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
     
     SDL_Color color = {0, 0, 0};
     if(!this->_currentUser.empty()){

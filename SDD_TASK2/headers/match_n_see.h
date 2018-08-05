@@ -12,6 +12,7 @@
 
 #include "button.h"
 #include "SDL2/SDL.h"
+#include "SDL2_mixer/SDL_mixer.h"
 #include <map>
 
 class Graphics;
@@ -52,6 +53,12 @@ private:
     
     Button *_exitButton;
     Button *_saveButton;
+    
+    Mix_Chunk *_bgMusic;
+    Mix_Chunk *_buttonClickSound;
+    Mix_Chunk *_flipSound;
+    Mix_Chunk *_bingoSound;
+    Mix_Chunk *_wrongSound;
 };
 
 #endif /* match_n_see_h */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C193FEB2110830D000FB1D4 /* stringMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C193FEA2110830D000FB1D4 /* stringMemory.cpp */; };
 		5C540D6F210A002B00E4F75F /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C540D6E210A002B00E4F75F /* button.cpp */; };
 		5C540D71210C87B800E4F75F /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C540D70210C87B800E4F75F /* SDL2_mixer.framework */; };
 		5C540D74210D511E00E4F75F /* login.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C540D73210D511E00E4F75F /* login.cpp */; };
@@ -22,6 +23,7 @@
 		5C6CD5B920EF2000000DDA89 /* tetris.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C6CD5B820EF2000000DDA89 /* tetris.cpp */; };
 		5CC405142101A6AE0012ECAB /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CC405132101A6AE0012ECAB /* process.cpp */; };
 		5CC405172101FEA70012ECAB /* menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CC405162101FEA70012ECAB /* menu.cpp */; };
+		5CE1B9E42116924700E231C4 /* match_n_see.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CE1B9E32116924700E231C4 /* match_n_see.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C193FE921107E08000FB1D4 /* stringMemory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stringMemory.h; path = headers/stringMemory.h; sourceTree = "<group>"; };
+		5C193FEA2110830D000FB1D4 /* stringMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringMemory.cpp; path = "src /stringMemory.cpp"; sourceTree = "<group>"; };
 		5C540D6D210A001F00E4F75F /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = headers/button.h; sourceTree = "<group>"; };
 		5C540D6E210A002B00E4F75F /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = "src /button.cpp"; sourceTree = "<group>"; };
 		5C540D70210C87B800E4F75F /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Documents/SDL_Libraries/SDL2_mixer.framework; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		5CC405132101A6AE0012ECAB /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = process.cpp; path = "src /process.cpp"; sourceTree = "<group>"; };
 		5CC405152101F9F20012ECAB /* menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = menu.h; path = headers/menu.h; sourceTree = "<group>"; };
 		5CC405162101FEA70012ECAB /* menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = menu.cpp; path = "src /menu.cpp"; sourceTree = "<group>"; };
+		5CE1B9E221168D2E00E231C4 /* match_n_see.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = match_n_see.h; path = headers/match_n_see.h; sourceTree = "<group>"; };
+		5CE1B9E32116924700E231C4 /* match_n_see.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = match_n_see.cpp; path = "src /match_n_see.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +128,8 @@
 				5CC405132101A6AE0012ECAB /* process.cpp */,
 				5CC405162101FEA70012ECAB /* menu.cpp */,
 				5C540D73210D511E00E4F75F /* login.cpp */,
+				5C193FEA2110830D000FB1D4 /* stringMemory.cpp */,
+				5CE1B9E32116924700E231C4 /* match_n_see.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -141,6 +149,8 @@
 				5CC405122101A4BB0012ECAB /* process.h */,
 				5CC405152101F9F20012ECAB /* menu.h */,
 				5C540D72210D4C4C00E4F75F /* login.h */,
+				5C193FE921107E08000FB1D4 /* stringMemory.h */,
+				5CE1B9E221168D2E00E231C4 /* match_n_see.h */,
 			);
 			name = headers;
 			sourceTree = "<group>";
@@ -219,6 +229,8 @@
 				5C540D6F210A002B00E4F75F /* button.cpp in Sources */,
 				5C6CD5B920EF2000000DDA89 /* tetris.cpp in Sources */,
 				5CC405172101FEA70012ECAB /* menu.cpp in Sources */,
+				5C193FEB2110830D000FB1D4 /* stringMemory.cpp in Sources */,
+				5CE1B9E42116924700E231C4 /* match_n_see.cpp in Sources */,
 				5C6CD5B320E70441000DDA89 /* game.cpp in Sources */,
 				5CC405142101A6AE0012ECAB /* process.cpp in Sources */,
 				5C6CD5B720E70441000DDA89 /* keyboard.cpp in Sources */,

@@ -86,8 +86,8 @@ enum CurrentProcess{
 #define TETRIS_WINDOW_HEGHT 550                  // self-explanatory
 
 // the specs of the game window
-#define TETRIS_GAME_AREA_WIDTH 288             //
-#define TETRIS_GAME_AREA_HEIGHT 550      //
+#define TETRIS_GAME_AREA_WIDTH 800             //
+#define TETRIS_GAME_AREA_HEIGHT 499      //
 
 // pause menu..
 #define TETRIS_STOP_MENU_WIDTH 374

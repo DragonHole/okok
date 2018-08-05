@@ -32,6 +32,7 @@ void Game::loop(){
     
     this->_tetrisObj = Tetris(this->_graphicsObj);
     this->_stringMemoryObj = stringMemory();
+    this->_match_n_seeObj = match_n_see();
 
     double LastUpdateTime = SDL_GetTicks();
     
@@ -59,6 +60,9 @@ void Game::loop(){
     
                 if(this->_process.getPid() == 8)
                     this->_stringMemoryObj.handleButtonEvent(this->_event);
+                
+                if(this->_process.getPid() == 10)
+                    this->_match_n_seeObj.handleButtonEvent(this->_event);
             }
             
     // close the window when the red close button is pressed
@@ -111,12 +115,28 @@ void Game::update(double elapsedTime){
             }
             break;
         }
+            
+        case 10:{
+            _which = this->_match_n_seeObj.update(elapsedTime);
+            if(_which == Scene::MATCH_N_SEE_DONE)
+                this->_process.setPid(9);
+            if(_which == Scene::MATCH_N_SEE_SAVE){
+                this->_menuObj.getScoreFromGame(this->_match_n_seeObj.getScore());
+                this->_menuObj.writeToFile();
+            }
+            if(_which == Scene::MATCH_N_SEE_EXIT)
+                this->_process.setPid(3);
+            
+            break;
+        }
     }
 }
 
 // really just keyboard input is processed here
 void Game::handleInput(){
     // commands here should be accessible globally
+    if(this->_keyboardObj.isKeyPressed(SDL_SCANCODE_Z))
+        this->_process.setPid(10);
     
     // commands only accessible in specific scene
     switch(this->_process.getPid()){
@@ -200,11 +220,12 @@ void Game::draw(double elapsedTime){
             this->_menuObj.drawStringMemDefaultMenu(this->_graphicsObj);
             break;
         }
-            
-        case 9:{
+
+        case 10:{
+            SDL_SetWindowSize(_graphicsObj.getWindow(), MATCH_N_SEE_WINDOW_WIDTH, MATCH_N_SEE_WINDOW_HEIGHT);
+            this->_match_n_seeObj.draw(this->_graphicsObj);
             break;
         }
-            
     }
 
     _graphicsObj.flipRenderer();

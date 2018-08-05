@@ -29,6 +29,8 @@ public:
     void update(SDL_Event &event);
     
     void draw(Graphics &graphicsObj);
+    
+    Rect &getBoundBox();
 
 private:
     Rect _boundBox;

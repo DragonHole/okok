@@ -42,3 +42,6 @@ void Button::draw(Graphics &graphicsObj){
     }
 }
 
+Rect &Button::getBoundBox(){
+    return this->_boundBox;
+}

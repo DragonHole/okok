@@ -52,7 +52,11 @@ enum Scene{
     TETRIS_WIN,
     
     STRINGMEM_EXIT, 
-    STRINGMEM_SAVE
+    STRINGMEM_SAVE,
+    
+    MATCH_N_SEE_DONE,
+    MATCH_N_SEE_SAVE,
+    MATCH_N_SEE_EXIT
 };
 
 // set offsets for sprites, very handy little utility
@@ -149,5 +153,13 @@ enum BlockType
 #define STRING_MEM_SCORE_PER_LEVEL 50        // because only one question each level. Final score added = level(ScorePerLevel+ constant)
 
 #define STRING_MEM_INCREMENT_ALPHA_PER_LEVEL 1
+
+// ---------------------------------MATCH_N_SEE---------------------------------
+#define MATCH_N_SEE_WINDOW_WIDTH 760
+#define MATCH_N_SEE_WINDOW_HEIGHT 610
+
+#define MATCH_N_SEE_PIC_WIDTH 100
+#define MATCH_N_SEE_PIC_HEIGHT 142
+
 
 #endif /* globals_h */

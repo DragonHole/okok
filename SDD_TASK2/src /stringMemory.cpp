@@ -19,7 +19,7 @@ stringMemory::stringMemory():_currentString(""), _incrementCurrentString(""), _u
     this->_replayButton = new Button("stringMemReplayButton1.png", "stringMemReplayButton2.png", 470, 55, 113, 45);
     this->_hintButton = new Button("stringMemHintButton1.png", "stringMemHintButton2.png", 320, 53, 142, 49);
     this->_exitButton = new Button("stringMemExitButton1.png", "stringMemExitButton2.png", 0, 1, 120, 44);
-    this->_saveButton = new Button("stringMemSaveButton1.png", "stringMemSaveButton2.png", 162, 53, 149, 45);
+    this->_saveButton = new Button("stringMemSaveButton1.png", "stringMemSaveButton2.png", 162, 53, 148, 44);
     
     this->_font = TTF_OpenFont("font2.ttf", 36);
     

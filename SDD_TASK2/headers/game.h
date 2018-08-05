@@ -15,6 +15,7 @@
 #include "process.h"
 #include "menu.h"
 #include "stringMemory.h"
+#include "match_n_see.h"
 
 // further encapsulation
 // right below main
@@ -42,6 +43,7 @@ private:
 
     Tetris _tetrisObj;
     stringMemory _stringMemoryObj;
+    match_n_see _match_n_seeObj;
     
     // just for Menu::getScoreFromGame(), yea.. what a shame, bad:(
     bool _loaded;

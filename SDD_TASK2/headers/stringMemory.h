@@ -72,6 +72,7 @@ private:
     SDL_Color _redColor;
     TTF_Font *_font;
     
+    Mix_Chunk *_startButtonSound;
     Mix_Chunk *_bingoSound;
     Mix_Chunk *_wrongSound;
     Mix_Chunk *_clickButtonSound;

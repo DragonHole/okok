@@ -87,7 +87,7 @@ Scene Tetris::update(Graphics &graphicsObj, float timeElapsed){
 }
 
 void Tetris::draw(Graphics &graphicsObj){
-    graphicsObj.setRenderDrawColor(0, 77 , 99, 255);
+    graphicsObj.setRenderDrawColor(0, 0, 0, 255);
     graphicsObj.drawImage("tetrisBg.png", 0, 0, 288, 551);
     
     this->_currentBlock->draw(graphicsObj);
@@ -105,20 +105,20 @@ void Tetris::draw(Graphics &graphicsObj){
         }
     
     SDL_Color color1 = {255, 255, 255};
-    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 0, 150, 90);
+    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 0, 150, 120);
     
     graphicsObj.drawStaticText(1, "Score", color1, 1, TETRIS_UI_SCORE_POSITION_X, TETRIS_UI_SCORE_POSITION_Y);
     graphicsObj.drawVarText(2, std::to_string(this->_score),color1, 1, TETRIS_UI_SCORE_POSITION_X, TETRIS_UI_SCORE_POSITION_Y + 30);
     
-    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 120, 150, 90);
+    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 120, 150, 120);
     graphicsObj.drawStaticText(3, "Level", color1, 1, TETRIS_UI_LEVEL_POSITION_X, TETRIS_UI_LEVEL_POSITION_Y);
     graphicsObj.drawVarText(4, std::to_string(this->_level), color1, 1, TETRIS_UI_LEVEL_POSITION_X, TETRIS_UI_LEVEL_POSITION_Y + 30);
     
-    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 240, 150, 90);
+    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 240, 150, 120);
     graphicsObj.drawStaticText(5, "Next Level", color1, 0.5, TETRIS_UI_SCORE_PER_LEVEL_X, TETRIS_UI_SCORE_PER_LEVEL_Y);
     graphicsObj.drawVarText(6, std::to_string(this->_level * TETRIS_SCORE_NEEDED_PER_LEVEL), color1, 0.5, TETRIS_UI_LEVEL_POSITION_X, TETRIS_UI_SCORE_PER_LEVEL_Y + 30);
     
-    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 360, 150, 90);
+    graphicsObj.drawImage("tetrisButtonWrapping.png", 288, 360, 150, 120);
     graphicsObj.drawStaticText(7, "Lines", color1, 0.5, TETRIS_UI_COMPLETED_LINES_X, TETRIS_UI_COMPLETED_LINES_Y);
     graphicsObj.drawVarText(8, std::to_string(this->_completedRows), color1, 0.5, TETRIS_UI_COMPLETED_LINES_X, TETRIS_UI_COMPLETED_LINES_Y + 30);
     

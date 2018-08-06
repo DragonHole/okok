@@ -39,15 +39,15 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     this->_buttons["mainMenuLoginButton"] = new Button("mainMenuLoginButton1.png", "mainMenuLoginButton2.png", 567, 60, 104, 115);
     this->_buttons["mainMenuLogoutButton"] = new Button("mainMenuLogoutButton1.png", "mainMenuLogoutButton2.png", 567, 60, 104, 115);
     
-    this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 515, 165, 40, 42);
+    this->_buttons["mainMenuCreateAccountMenuBackButton"] = new Button("mainMenuCreateAccountMenuBackButton1.png", "mainMenuCreateAccountMenuBackButton2.png", 200, 70, 100, 44);
     
     this->_buttons["mainMenuCreateAccountMenuCreateButton"] = new Button("mainMenuCreateAccountMenuCreateButton1.png", "mainMenuCreateAccountMenuCreateButton2.png", 217, 432, 283, 45);
     
     this->_buttons["mainMenuLoginMenuLoginButton"] = new Button("mainMenuLoginMenuLoginButton1.png", "mainMenuLoginMenuLoginButton2.png", 217, 432, 283, 45);
     
     // since these two are only used for detection, so no image for them. I'm too lazy to write a special method for handling blank space detection... :)呵呵懒鬼
-    this->_buttons["mainMenuUsernameLacuna"] = new Button("", "", 325, 231, 194, 25);
-    this->_buttons["mainMenuPasswordLacuna"] = new Button("", "", 325, 276, 194, 25);
+    this->_buttons["mainMenuUsernameLacuna"] = new Button("", "", 218, 261, 283, 54);
+    this->_buttons["mainMenuPasswordLacuna"] = new Button("", "", 218, 335, 283, 54);
     
     this->_mainBgm = Mix_LoadWAV("bgm.wav");
     this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
@@ -89,30 +89,30 @@ void Menu::drawMainMenuCreateAccountMenu(Graphics &graphicsObj){
     
     SDL_Color color = {0, 0, 0};
     if(!this->_loginUserNameTypingStatusLook.empty())
-        graphicsObj.drawVarText(9, this->_loginUserNameTypingStatusLook, color, 1, 335, 228);
+        graphicsObj.drawVarText(9, this->_loginUserNameTypingStatusLook, color, 1, 280, 287);
     
     if(!this->_loginPasswordTypingStatusLook.empty())
-        graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 335, 272);
+        graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 280, 349);
     
     SDL_Color red = {255, 0, 0};
     switch(this->_errorCode){
         case 1:{
-            graphicsObj.drawStaticText(11, "couldn't create account, user already existed\n", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(11, "couldn't create account, user already existed\n", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 2:{
-            graphicsObj.drawStaticText(12, "You need a username with SOMETHING in it!", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(12, "You need a username with SOMETHING in it!", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 3:{
-            graphicsObj.drawStaticText(13, "Seriously? An empty password??!!", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(13, "Seriously? An empty password??!!", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 4:{
-            graphicsObj.drawStaticText(14, "A password same as your username seems like a good idea", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(14, "A password same as your username seems like a good idea", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 5:{
-            graphicsObj.drawStaticText(15, "No username and no password?", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(15, "No username and no password?", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 0:{
-            graphicsObj.drawStaticText(16, "Account created successfully!", red, 0.7, 210, 325);
+            graphicsObj.drawStaticText(16, "Account created successfully!", red, 0.7, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
     }
     
@@ -131,10 +131,10 @@ void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
     SDL_Color color = {0, 0, 0};
     SDL_Color red = {255, 0, 0};
     if(!this->_loginUserNameTypingStatusLook.empty())
-        graphicsObj.drawVarText(9, this->_loginUserNameTypingStatusLook, color, 1, 335, 228);
+        graphicsObj.drawVarText(9, this->_loginUserNameTypingStatusLook, color, 1, 280, 287);
     
     if(!this->_loginPasswordTypingStatusLook.empty())
-        graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 335, 272);
+        graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 280, 349);
     
     if(this->_currentUser.empty() == 0){
         graphicsObj.drawStaticText(23, "Your score:", color, 0.8, 210, 330);
@@ -143,22 +143,22 @@ void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
     
     switch(this->_isCredentialValid){
         case 1:{
-            graphicsObj.drawStaticText(17, "Login successful", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(17, "Login successful", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 2:{
-            graphicsObj.drawStaticText(18, "User doesn't exist", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(18, "User doesn't exist", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 3:{
-            graphicsObj.drawStaticText(19, "Enter your username please", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(19, "Enter your username please", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 4:{
-            graphicsObj.drawStaticText(20, "Enter your password please", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(20, "Enter your password please", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 5:{
-            graphicsObj.drawStaticText(21, "enter something please", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(21, "enter something please", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
         case 6:{
-            graphicsObj.drawStaticText(22, "Credentials don't match", red, 0.8, 210, 310);
+            graphicsObj.drawStaticText(22, "Credentials don't match", red, 0.8, MAIN_MENU_LOGIN_ERROR_TEXT_X, MAIN_MENU_LOGIN_ERROR_TEXT_Y);
             break; }
     }
 }

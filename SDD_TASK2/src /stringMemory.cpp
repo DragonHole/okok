@@ -26,6 +26,7 @@ stringMemory::stringMemory():_currentString(""), _incrementCurrentString(""), _u
     this->_bingoSound = Mix_LoadWAV("stringMemBingoSound.wav");
     this->_wrongSound = Mix_LoadWAV("stringMemWrongSound.wav");
     this->_clickButtonSound = Mix_LoadWAV("buttonClickSound.wav");
+    this->_startButtonSound = Mix_LoadWAV("stringMemStartButton.wav");
 }
 
 stringMemory::~stringMemory(){}
@@ -67,7 +68,7 @@ void stringMemory::handleButtonEvent(SDL_Event &event){
     if(!this->_started && this->_correct == 0){
         this->_startButton->update(event);
         if(this->_startButton->isButtonClicked()){
-            Mix_PlayChannel(-1, this->_clickButtonSound, 0);
+            Mix_PlayChannel(-1, this->_startButtonSound, 0);
             this->_started = true;
             genString();
         }
@@ -116,7 +117,7 @@ void stringMemory::handleKeyboardEvent(SDL_Event &event){
     }
 
     // if enter is pressed, then check for validity and go on
-    if(this->_started && this->_correct == 0)
+    if(this->_started && this->_correct == 0){
         if(event.key.keysym.scancode == SDL_SCANCODE_RETURN){
             if(this->_userString == this->_currentString || _hint){
                 Mix_PlayChannel(-1, this->_bingoSound, 0);
@@ -132,6 +133,7 @@ void stringMemory::handleKeyboardEvent(SDL_Event &event){
                 std::cout<<"\nstring don't match!";
             }
         }
+    }
     
     if(this->_started)                      // human limit:)
         if(strlen(this->_userString.c_str()) < 25 && this->_started)
@@ -149,10 +151,8 @@ void stringMemory::draw(Graphics &graphicsObj){
         // custom font for string memory game
         if(!this->_userString.empty()){
             graphicsObj.drawVarText(this->_font, 26, this->_userString, this->_color, 1, 280, 535);}
-        else if(_hint)
+        if(_hint)
             graphicsObj.drawVarText(this->_font, 26, this->_currentString, this->_color, 1, 280, 535);
-        else
-            graphicsObj.drawVarText(this->_font, 26, " ", this->_color, 1, 280, 535);
         
         graphicsObj.drawVarText(this->_font, 27, this->_incrementCurrentString, this->_color, 1, 510, 260);
         

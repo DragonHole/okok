@@ -79,6 +79,9 @@ enum CurrentProcess{
 #define MAIN_MENU_WIDTH 736
 #define MAIN_MENU_HEIGHT 552
 
+#define MAIN_MENU_LOGIN_ERROR_TEXT_X 221
+#define MAIN_MENU_LOGIN_ERROR_TEXT_Y 397
+
 // ----------------Game Specific Globals----------------------------
 // Tetris
 // No reason to be accessible outside this class
@@ -117,8 +120,8 @@ enum CurrentProcess{
     // constants for drawing screen elements
 #define TETRIS_UI_NEXT_BLOCK_X  (612+155)       //
 #define TETRIS_UI_NEXT_BLOCK_Y = 140            //
-#define TETRIS_UI_SCORE_POSITION_X  (320)    //
-#define TETRIS_UI_SCORE_POSITION_Y  (27)    //
+#define TETRIS_UI_SCORE_POSITION_X  (321)    //
+#define TETRIS_UI_SCORE_POSITION_Y  (29)    //
 #define TETRIS_UI_LEVEL_POSITION_X  (320)    //
 #define TETRIS_UI_LEVEL_POSITION_Y  (107)         //
 #define TETRIS_UI_SCORE_PER_LEVEL_X  (320)   //

@@ -23,10 +23,10 @@ stringMemory::stringMemory():_currentString(""), _incrementCurrentString(""), _u
     
     this->_font = TTF_OpenFont("font2.ttf", 36);
     
-    this->_bingoSound = Mix_LoadWAV("stringMemBingoSound.wav");
+    this->_bingoSound = Mix_LoadWAV("stringMemCorrectSound.wav");
     this->_wrongSound = Mix_LoadWAV("stringMemWrongSound.wav");
     this->_clickButtonSound = Mix_LoadWAV("buttonClickSound.wav");
-    this->_startButtonSound = Mix_LoadWAV("stringMemStartButton.wav");
+    this->_startButtonSound = Mix_LoadWAV("stringMemStartButtonSound.wav");
 }
 
 stringMemory::~stringMemory(){}
@@ -176,6 +176,7 @@ void stringMemory::draw(Graphics &graphicsObj){
 
 void stringMemory::genString(){
     this->_incrementCurrentString.clear();
+    this->_incrementCurrentString = "";
     
     srand((unsigned int)time(NULL));
     for(int i = 0; i < STRING_MEM_INCREMENT_ALPHA_PER_LEVEL; i++){

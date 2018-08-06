@@ -49,8 +49,8 @@ Menu::Menu():_clickedOnUsernameOrPassword(0), _isCredentialValid(0){
     this->_buttons["mainMenuUsernameLacuna"] = new Button("", "", 218, 261, 283, 54);
     this->_buttons["mainMenuPasswordLacuna"] = new Button("", "", 218, 335, 283, 54);
     
-    this->_mainBgm = Mix_LoadWAV("bgm.wav");
-    this->_buttonClickSound = Mix_LoadWAV("buttonClickSound.wav");
+    this->_mainBgm = Mix_LoadWAV("mainBgm.wav");
+    this->_buttonClickSound = Mix_LoadWAV("match_n_seeButtonClickSound.wav");
     this->_tetrisBgm = Mix_LoadWAV("tetrisBgm.wav");
     this->_tetrisGameOverSound = Mix_LoadWAV("tetrisGameOverSound.wav");
     this->_stringMemoryBgm = Mix_LoadWAV("stringMemoryBgm.wav");
@@ -135,11 +135,6 @@ void Menu::drawMainMenuLoginMenu(Graphics &graphicsObj){
     
     if(!this->_loginPasswordTypingStatusLook.empty())
         graphicsObj.drawVarText(10, this->_loginPasswordTypingStatusLook, color, 1, 280, 349);
-    
-    if(this->_currentUser.empty() == 0){
-        graphicsObj.drawStaticText(23, "Your score:", color, 0.8, 210, 330);
-        graphicsObj.drawStaticText(24, std::to_string(this->_loginObj.retrieveScore(this->_currentUser)), red, 1.3, 350, 325);
-    }
     
     switch(this->_isCredentialValid){
         case 1:{

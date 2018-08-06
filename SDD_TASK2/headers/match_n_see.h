@@ -53,6 +53,7 @@ private:
     
     Button *_exitButton;
     Button *_saveButton;
+    Button *_startButton;
     
     Mix_Chunk *_bgMusic;
     Mix_Chunk *_buttonClickSound;

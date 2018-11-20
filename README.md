@@ -1,4 +1,4 @@
-# okok
+# My SDD project
 
 三合一小游戏。
 
